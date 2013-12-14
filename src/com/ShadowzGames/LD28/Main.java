@@ -10,7 +10,7 @@ public class Main extends StateBasedGame
 {
 	public static final float WIDTH = 640;
 	public static final float HEIGHT = 480;
-	public static final String TITLE = "";
+	public static final String TITLE = "You Only Get One";
 	
 	public static final int MAIN_MENU = 0;
 	public static final int MAIN_GAME = 1;

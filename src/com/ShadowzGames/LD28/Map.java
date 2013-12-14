@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 import com.ShadowzGames.LD28.tile.*;
 
 public class Map {
-	private final int TILE_ROW = 2, TILE_COL = 3;
+	private final int TILE_ROW = 30, TILE_COL = 15;
 	public Tile[][] tiles = new Tile[TILE_COL][TILE_ROW];
 //	public int[][] tileSlot = new int[TILE_ROW][TILE_COL];	
 	
@@ -37,9 +37,9 @@ public class Map {
 		}
 	}
 
-//	public void setTile(int x, int y){	
-//	}
-//	
-//	public void getTile(int x, int y){
-//	}
+	public void setTile(int x, int y){
+	}
+	
+	public void getTile(int x, int y){
+	}
 }
