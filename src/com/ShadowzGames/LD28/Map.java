@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import com.ShadowzGames.LD28.tile.*;
 
 public class Map {
-	private final int TILE_ROW = 1, TILE_COL = 2, TILE_WIDTH=16, TILE_HEIGHT=16;
+	private final int TILE_ROW = 3, TILE_COL = 5, TILE_WIDTH=16, TILE_HEIGHT=16;
 	public Tile[][] tiles = new Tile[TILE_COL][TILE_ROW];
 	private TileFactory envFactory;
 //	public int[][] tileSlot = new int[TILE_ROW][TILE_COL];
@@ -24,7 +24,7 @@ public class Map {
 		envFactory = environmentFactory;
 		for(int i = 0; i < TILE_COL; ++i){
 			for(int k = 0; k < TILE_ROW; ++k){
-				tiles[i][k] = envFactory.GetTile(1, GrassTile.class);
+				tiles[i][k] = new Tile(envFactory.GetTile(1, GrassTile.class));
 			}
 		}
 		

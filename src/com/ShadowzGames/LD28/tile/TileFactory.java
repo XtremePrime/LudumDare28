@@ -5,23 +5,23 @@ import org.newdawn.slick.Image;
 
 public class TileFactory {
 	protected SpriteSheet ss;
-	protected Tile[] loadedImages;
+	protected TilePrototype[] loadedImages;
 	final int heightCount;
 	final int widthCount;
-	public final Tile empty =  new AirTile();
+	public final TilePrototype empty =  new AirTile();
 	public TileFactory(SpriteSheet sheet) {
 		ss = sheet;
 		heightCount = ss.getVerticalCount();
 		widthCount = ss.getHorizontalCount();
-		loadedImages = new Tile[heightCount*widthCount+1];
+		loadedImages = new TilePrototype[heightCount*widthCount+1];
 		empty.create(null, -1);
 	}
 	
-	public Tile GetTile(int id){
+	public TilePrototype GetTile(int id){
 		return GetTile(id, AirTile.class);
 	}
 	
-	public Tile GetTile(int x, int y){
+	public TilePrototype GetTile(int x, int y){
 		return GetTile(x, y, AirTile.class);
 	}
 	
@@ -31,7 +31,7 @@ public class TileFactory {
 	 * @param type  A type of Tile that you expect to be created
 	 * @return  The tile of the type you requested
 	 */
-	public <T extends Tile> Tile GetTile(int id, Class<T> type){
+	public <T extends TilePrototype> TilePrototype GetTile(int id, Class<T> type){
 		if(id == 0){
 			//- Returns a tile with a null image, for an empty space
 			return GetTile(-1, -1, type);
@@ -51,7 +51,7 @@ public class TileFactory {
 	 * @param type  A type of Tile that you expect to be created
 	 * @return  The tile of the type you requested
 	 */
-	public <T extends Tile> Tile GetTile(int x, int y, Class<T> type){
+	public <T extends TilePrototype> TilePrototype GetTile(int x, int y, Class<T> type){
 		if(x < 0 || y < 0){
 			//- Returns a tile with a null image, for an empty space
 			return empty;
@@ -64,7 +64,7 @@ public class TileFactory {
 		if(loadedImages[id] == null){
 			Image temp = ss.getSubImage(x, y);
 			try {
-				loadedImages[id] = (Tile)type.newInstance();
+				loadedImages[id] = (TilePrototype)type.newInstance();
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
