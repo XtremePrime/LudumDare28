@@ -11,22 +11,22 @@ import com.ShadowzGames.LD28.tile.*;
 public class Map {
 	private final int TILE_ROW = 2, TILE_COL = 3, TILE_WIDTH=16, TILE_HEIGHT=16;
 	public Tile[][] tiles = new Tile[TILE_COL][TILE_ROW];
+	private TileFactory envFactory;
 //	public int[][] tileSlot = new int[TILE_ROW][TILE_COL];
-	SpriteSheet sheet;
 	
-	public Map(SpriteSheet sheet){
-		this.sheet = sheet;
+	public Map(TileFactory environmentFactory){
 		try {
-			init();
+			init(environmentFactory);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void init() throws SlickException {
+	public void init(TileFactory environmentFactory) throws SlickException {
+		envFactory = environmentFactory;
 		for(int i = 0; i < TILE_COL; ++i){
 			for(int k = 0; k < TILE_ROW; ++k){
-				tiles[i][k] = new Tile(0);
+				tiles[i][k] = envFactory.GetTile(0);
 			}
 		}
 		
@@ -37,7 +37,7 @@ public class Map {
 			}
 		}
 	}
-	
+	 
 	public void draw(Graphics g) {
 	}
 
