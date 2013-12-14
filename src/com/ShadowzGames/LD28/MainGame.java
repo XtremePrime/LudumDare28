@@ -31,7 +31,7 @@ public class MainGame extends BasicGameState{
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-
+		
 	}
 
 	@Override
