@@ -8,7 +8,6 @@ import com.ShadowzGames.LD28.tile.*;
 
 public class Map {
 	private final int TILE_ROW = 2, TILE_COL = 3, TILE_WIDTH=16, TILE_HEIGHT=16;
-
 	public Tile[][] tiles = new Tile[TILE_COL][TILE_ROW];
 //	public int[][] tileSlot = new int[TILE_ROW][TILE_COL];	
 	
