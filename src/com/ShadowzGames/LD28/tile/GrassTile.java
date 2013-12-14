@@ -6,11 +6,11 @@ import org.newdawn.slick.Image;
 public class GrassTile extends Tile{
 
 	@Override
-	public void init(){
+	protected void init(){
 	}
 
 	@Override
-	public void render(Graphics g, int x, int y){
+	public void render(Graphics g, float x, float y){
 		img.drawEmbedded(x, y);
 	}
 	

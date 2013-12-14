@@ -10,7 +10,7 @@ import org.newdawn.slick.geom.Rectangle;
 public abstract class Tile {
 	
 	protected Rectangle tileRect;
-	protected int w = 16, h = 16, x, y;
+	//protected int w = 16, h = 16, x, y;
 	protected Image img;
 	protected boolean created = false;
 	private int id;
@@ -20,7 +20,7 @@ public abstract class Tile {
 	
 	protected Tile(){}
 	
-	abstract public void init();
+	abstract protected void init();
 	
 	final public void create(Image img, int id){
 		if(this.created) 
@@ -28,6 +28,7 @@ public abstract class Tile {
 					Level.WARNING, "The tile had already been created, make sure to not call the create function too often.", this);
 		this.img = img;
 		this.id = id;
+		tileRect = new Rectangle(0, 0, 16, 16); // default rectangle size
 		this.created = true;
 		init();
 		//if (tiles[id] != null) throw new RuntimeException("Tile is already set!");
@@ -40,10 +41,10 @@ public abstract class Tile {
 	}
 
 	final public void render(Graphics g){
-		render(g, x, y);
+		render(g, tileRect.getX(), tileRect.getY());
 	}
 	
-	public void render(Graphics g, int x, int y){
+	protected void render(Graphics g, float x, float y){
 	}
 	
 	public Rectangle getRect(){

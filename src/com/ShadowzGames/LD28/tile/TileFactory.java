@@ -14,6 +14,7 @@ public class TileFactory {
 		heightCount = ss.getVerticalCount();
 		widthCount = ss.getHorizontalCount();
 		loadedImages = new Tile[heightCount*widthCount+1];
+		empty.create(null, -1);
 	}
 	
 	public Tile GetTile(int id){

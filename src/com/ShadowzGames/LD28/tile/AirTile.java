@@ -4,6 +4,6 @@ import org.newdawn.slick.Image;
 
 public class AirTile extends Tile {
 	@Override
-	public void init(){
+	protected void init(){
 	}
 }
