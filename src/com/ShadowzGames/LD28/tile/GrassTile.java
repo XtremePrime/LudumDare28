@@ -11,7 +11,9 @@ public class GrassTile extends Tile{
 
 	@Override
 	public void render(Graphics g, float x, float y){
-		img.drawEmbedded(x, y);
+		img.startUse();
+		  img.drawEmbedded(x, y);
+		  img.endUse();
 	}
 	
 	public int getID(){
