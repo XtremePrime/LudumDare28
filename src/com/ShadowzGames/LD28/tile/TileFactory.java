@@ -25,18 +25,32 @@ public class TileFactory {
 		return GetTile(x, y, AirTile.class);
 	}
 	
+	/**
+	 * 
+	 * @param id ID for the tile, uses the reverse conversion of x*widthCount+y to calculate its position on the chart.
+	 * @param type  A type of Tile that you expect to be created
+	 * @return  The tile of the type you requested
+	 */
 	public <T extends Tile> Tile GetTile(int id, Class<T> type){
 		if(id == 0){
 			//- Returns a tile with a null image, for an empty space
 			return GetTile(-1, -1, type);
 		}
 		else{
+			id = id-1;
 			int x = id % widthCount;
 			int y = id / widthCount;
 			return GetTile(x, y, GrassTile.class);
 		}
 	}
 	
+	/**
+	 * 
+	 * @param x  Indices from the left, starting with 0
+	 * @param y  Indices from the top, starting with 0
+	 * @param type  A type of Tile that you expect to be created
+	 * @return  The tile of the type you requested
+	 */
 	public <T extends Tile> Tile GetTile(int x, int y, Class<T> type){
 		if(x < 0 || y < 0){
 			//- Returns a tile with a null image, for an empty space

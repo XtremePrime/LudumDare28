@@ -23,7 +23,7 @@ public class Map {
 		envFactory = environmentFactory;
 		for(int i = 0; i < TILE_COL; ++i){
 			for(int k = 0; k < TILE_ROW; ++k){
-				tiles[i][k] = envFactory.GetTile(0);
+				tiles[i][k] = envFactory.GetTile(1, GrassTile.class);
 			}
 		}
 		
