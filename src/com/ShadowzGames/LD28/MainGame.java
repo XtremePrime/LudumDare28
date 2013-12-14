@@ -8,17 +8,19 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MainGame extends BasicGameState{
 
+	private Map map = new Map();
+	
 	public MainGame(int state){
 	}
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-
+		
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-
+		map.draw(g);
 	}
 
 	@Override
