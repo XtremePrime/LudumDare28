@@ -10,6 +10,8 @@ public class SpriteFactory {
 	protected Sprite[] loadedImages;
 	final int heightCount;
 	final int widthCount;
+	final int tileheight = 16;
+	final int tilewidth = 16;
 	public final Sprite empty = new Sprite(); // new AirTile();
 	
 	public SpriteFactory(SpriteSheet sheet) {
@@ -104,7 +106,7 @@ public class SpriteFactory {
 			throw new IndexOutOfBoundsException("Couldn't load that an image outside the bounds of the spritesheet.");
 		}
 		if(loadedImages[id] == null){
-			Image temp = ss.getSubImage(x, y, width, height);
+			Image temp = ss.getSubImage(x*tilewidth, y*tileheight, width*tilewidth, height*tileheight);
 			try {
 				loadedImages[id] = (Sprite)type.newInstance();
 			} catch (InstantiationException e) {

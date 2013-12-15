@@ -18,14 +18,14 @@ public class AnimatedSprite extends Sprite {
 		if(img == null){
 			return; //- Ignores sprites without images
 		}
-		animation = new ArrayList<Animation>();
+		//animation = new ArrayList<Animation>();
 		Rectangle bounds = getBoundingBox();
 		for(int i = 0; i < img.getHeight(); ++i){
 			int x = 0;
 			int y = i;
 			int w = img.getWidth()-1;
 			int h = 0;
-			animation.add(new Animation(new SpriteSheet(img, (int)bounds.getWidth(), (int)bounds.getHeight()), x, y, w, h, false, 100, false));
+			//animation.add(new Animation(new SpriteSheet(img, (int)bounds.getWidth(), (int)bounds.getHeight()), x, y, w, h, false, 100, false));
 		}
 	}
 	
