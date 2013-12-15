@@ -17,6 +17,7 @@ public class Player extends Mob{
 	private int wave = 0;
 	private boolean isDead = false;
 	private boolean isFalling = false;
+	private boolean isMoving = false;
 	
 	private Random rand = new Random();
 	
@@ -55,30 +56,31 @@ public class Player extends Mob{
 	 **/
 	public void move(GameContainer gc, Entity entity, int delta){
 		Input input = gc.getInput();
+		isMoving = false;
 		/*Will use for the weapon direction, no point yet.*/
 		//TODO weapon dir;
-//		if((input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) &&
-//			(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))){
-//			this.dir = Direction.UP_RIGHT;
-//			this.rect.setX(rect.getX() + moveSpeed); // Moving right, Pointing up-right
-//			return;
-//		}else if((input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) &&
-//			(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))){
-//			this.dir = Direction.UP_LEFT;
-//			this.rect.setX(rect.getX() - moveSpeed); // Moving left, Pointing up-left
-//			return;
-//		}
-//		if((input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) &&
-//			(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))){
-//			this.dir = Direction.DOWN_RIGHT;
-//			this.rect.setX(rect.getX() + moveSpeed); // Moving right, Pointing down-right
-//			return;
-//		}else if((input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) &&
-//			(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))){
-//			this.dir = Direction.DOWN_LEFT;
-//			this.rect.setX(rect.getX() - moveSpeed); // Moving left, Pointing down-left
-//			return;
-//		}
+/*		if((input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) &&
+			(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))){
+			this.dir = Direction.UP_RIGHT;
+			this.rect.setX(rect.getX() + moveSpeed); // Moving right, Pointing up-right
+			return;
+		}else if((input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) &&
+			(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))){
+			this.dir = Direction.UP_LEFT;
+			this.rect.setX(rect.getX() - moveSpeed); // Moving left, Pointing up-left
+			return;
+		}
+		if((input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) &&
+			(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))){
+			this.dir = Direction.DOWN_RIGHT;
+			this.rect.setX(rect.getX() + moveSpeed); // Moving right, Pointing down-right
+			return;
+		}else if((input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) &&
+			(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))){
+			this.dir = Direction.DOWN_LEFT;
+			this.rect.setX(rect.getX() - moveSpeed); // Moving left, Pointing down-left
+			return;
+		}*/
 		Rectangle rect = entity.getRect();
 		if(input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)){
 			this.dir = Direction.UP;
@@ -90,11 +92,14 @@ public class Player extends Mob{
 		}else if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)){
 			this.dir = Direction.LEFT;
 			rect.setX(rect.getX() - moveSpeed);
+			isMoving = true;
 		}else if(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)){
 			this.dir = Direction.RIGHT;
 			rect.setX(rect.getX() + moveSpeed);
+			isMoving = true;
 		}
-		animate(entity, delta);
+		
+		if(isMoving) animate(entity, delta);
 	}
 	
 	int combinedDelta = 0;
