@@ -1,10 +1,13 @@
 package com.ShadowzGames.LD28.entity;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.geom.Rectangle;
 
+import com.ShadowzGames.LD28.SpriteContainer;
 import com.ShadowzGames.LD28.Direction;
+import com.ShadowzGames.LD28.Sprite;
 
-public class Mob extends Entity{
+public class Mob extends Sprite{
 	protected int moveSpeed = 1;
 	protected int dir = 0;
 	protected int hurtTime = 0;
@@ -16,15 +19,20 @@ public class Mob extends Entity{
 	public Mob() {
 	}
 
-	public void update(GameContainer gc, int delta) {
+	@Override
+	public void update(GameContainer gc, SpriteContainer sc, int delta) {
 		tickCount++;
-		if (health <= 0) {
-			die();
+		if(sc instanceof Entity){
+			Entity entity = (Entity)sc;
+			if (health <= 0) {
+				entity.die();
+			}
+			if (hurtTime > 0) hurtTime--;
 		}
-		if (hurtTime > 0) hurtTime--;
 	}
 
-	public void knockback(int dir, int dist){
+	public void knockback(Entity sc, int dir, int dist){
+		Rectangle rect = sc.getRect();
 		switch(dir){
 			case Direction.RIGHT:{
 				rect.setX(rect.getX()-dist);
@@ -35,8 +43,8 @@ public class Mob extends Entity{
 		}
 	}
 	
-	public void hurt(Mob mob, int dmg, int dir){
-		doHurt(dmg, dir);
+	public void hurt(Entity mob, int dmg, int dir){
+		doHurt(mob, dmg, dir);
 	}
 	
 	/**
@@ -44,13 +52,9 @@ public class Mob extends Entity{
 	 * @param dmg - Damage received
 	 * @param dir - Direction of the mob/player
 	 */
-	public void doHurt(int dmg, int dir){
-		knockback(dir, 3);
+	public void doHurt(Entity sc, int dmg, int dir){
+		knockback(sc, dir, 3);
 		health -= dmg;
 		hurtTime = 10;
-	}
-	
-	public void die() {
-		remove();
 	}
 }

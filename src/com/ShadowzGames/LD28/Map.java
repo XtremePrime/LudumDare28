@@ -55,7 +55,6 @@ public class Map {
 		for(int i = 0; i < TILE_COL; ++i){
 			for(int k = 0; k < TILE_ROW; ++k){
 				Color tempColor = level.getColor(i, k);
-				System.out.println(colorToARGB(tempColor));
 				Sprite tile = tileTypes.get(colorToARGB(tempColor));
 				if(tile != null){
 					tiles[i][k] = new Tile(tile);

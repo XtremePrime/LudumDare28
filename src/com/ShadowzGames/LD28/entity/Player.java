@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.ShadowzGames.LD28.Direction;
+import com.ShadowzGames.LD28.SpriteContainer;
 
 public class Player extends Mob{
 	
@@ -22,11 +23,19 @@ public class Player extends Mob{
 		this.wave = 0;
 		this.isDead = false;
 		
-		this.rect = new Rectangle(x, y, 16, 32);
 	}
 	
-	public void update(GameContainer gc, int delta){
-		super.update(gc, delta);
+	@Override
+	public Rectangle getBoundingBox(){
+		return new Rectangle(0,0,16,32);
+	}
+	
+	@Override
+	public void update(GameContainer gc, SpriteContainer sc, int delta){
+		super.update(gc, sc, delta);
+		if(sc instanceof Entity){
+			move(gc, (Entity)sc, delta);
+		}
 	}
 	
 	/**
@@ -35,7 +44,7 @@ public class Player extends Mob{
 	 * @param delta - Still WIP, but it's the delta between current frame and last frame.
 	 * 
 	 * */
-	public void move(GameContainer gc, int delta){
+	public void move(GameContainer gc, Entity entity, int delta){
 		Input input = gc.getInput();
 		/*Will use for the weapon direction, no point yet.*/
 		//TODO weapon dir;
@@ -61,7 +70,7 @@ public class Player extends Mob{
 //			this.rect.setX(rect.getX() - moveSpeed); // Moving left, Pointing down-left
 //			return;
 //		}
-			
+		Rectangle rect = entity.getRect();
 		if(input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)){
 			this.dir = Direction.UP;
 			//TODO jump;
@@ -70,10 +79,10 @@ public class Player extends Mob{
 			//TODO crouch?;
 		}else if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)){
 			this.dir = Direction.LEFT;
-			this.rect.setX(rect.getX() - moveSpeed);
+			rect.setX(rect.getX() - moveSpeed);
 		}else if(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)){
 			this.dir = Direction.RIGHT;
-			this.rect.setX(rect.getX() + moveSpeed);
+			rect.setX(rect.getX() + moveSpeed);
 		}
 	}
 	

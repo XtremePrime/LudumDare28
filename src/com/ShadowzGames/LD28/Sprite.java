@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
 
 public class Sprite {
 		
@@ -18,10 +19,15 @@ public class Sprite {
 	
 	}
 	
+	//- Override this function to set default size of the sprite
+	public Rectangle getBoundingBox(){
+		return new Rectangle(0,0,16,16);
+	}
+	
 	final public void create(Image img, int id){
 		if(this.created) 
 			Logger.getLogger("LudumDareLog").log(
-					Level.WARNING, "The tile had already been created, make sure to not call the create function too often.", this);
+					Level.WARNING, "The tile had already been created, make sure to not call the create function too often, may cause weird bugs.", this);
 		this.img = img;
 		this.id = id;
 		this.created = true;
@@ -33,9 +39,14 @@ public class Sprite {
 	}
 	
 	public void render(Graphics g, float x, float y){
+		if(img != null){
+			img.startUse();
+			img.drawEmbedded(x, y);
+			img.endUse();
+		}
 	}
 	
-	public void update(GameContainer gc, int delta){
+	public void update(GameContainer gc, SpriteContainer container, int delta){
 	}
 	
 }
