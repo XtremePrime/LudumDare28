@@ -10,4 +10,6 @@ public abstract class Direction {
 	public final static int UP_LEFT = 7;
 	public final static int DOWN_RIGHT = 3;
 	public final static int DOWN_LEFT = 5;
+	
+	public final static int NONE = -1;
 }

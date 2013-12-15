@@ -2,10 +2,8 @@ package com.ShadowzGames.LD28.entity;
 
 import java.util.Random;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -45,8 +43,8 @@ public class Player extends Mob{
 	}
 	
 	@Override
-	public void render(Graphics g, float x, float y){
-		super.render(g, x, y);
+	public void render(Graphics g, SpriteContainer sc){
+		super.render(g, sc);
 	}
 	
 	/**
@@ -96,8 +94,26 @@ public class Player extends Mob{
 			this.dir = Direction.RIGHT;
 			rect.setX(rect.getX() + moveSpeed);
 		}
+		animate(entity, delta);
 	}
 	
+	int combinedDelta = 0;
+	int previousDir = Direction.RIGHT;
+	private void animate(Entity entity, int delta) {
+		combinedDelta += delta;
+		if(previousDir != dir){
+			if(previousDir == Direction.RIGHT && dir == Direction.LEFT ||
+					previousDir == Direction.LEFT && dir == Direction.RIGHT){
+				entity.flip();
+				previousDir = dir;
+			}
+		}
+		if(combinedDelta > 140){
+			nextFrame(entity);
+			combinedDelta = 0;
+		}
+	}
+
 	public void jump(){
 		//TODO jump 48/64
 	}
@@ -109,4 +125,8 @@ public class Player extends Mob{
 	private int getAttackDamage(){
 		return rand.nextInt(3)+1;
 	}
+}
+
+enum test{
+	one
 }

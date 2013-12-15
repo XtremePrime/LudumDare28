@@ -38,10 +38,10 @@ public class Sprite {
 		return id;
 	}
 	
-	public void render(Graphics g, float x, float y){
+	public void render(Graphics g, SpriteContainer sc){
 		if(img != null){
 			img.startUse();
-			img.drawEmbedded(x, y);
+			img.drawEmbedded(sc.getRect().getX(), sc.getRect().getY());
 			img.endUse();
 		}
 	}
