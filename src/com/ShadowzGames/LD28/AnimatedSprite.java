@@ -100,7 +100,10 @@ public class AnimatedSprite extends Sprite {
 				}
 				else{
 					try{
-						Image temp = animation.get(entity.getAnimationIndex()).getImage(entity.getAnimationFrame());
+						int frame = entity.getAnimationFrame();
+						if(frame > maxFrame) frame = 0; //- Fixing potential index out of range problems by setting framecount to 0
+						
+						Image temp = animation.get(entity.getAnimationIndex()).getImage(frame);
 						
 						if(entity.isFlipped()) temp = temp.getFlippedCopy(true, false);
 						
