@@ -4,6 +4,7 @@ package com.ShadowzGames.LD28;
 import java.util.Random;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -99,12 +100,13 @@ public class MainGame extends BasicGameState{
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		g.drawString(""+(timer/1000), 20, 5);
 		
 		currentBackground.startUse();
 		currentBackground.drawEmbedded(0, 0);
 		currentBackground.endUse();
 		map.draw(g);
+		g.setColor(new Color(0,0,0,255));
+		g.drawString(""+(timer/1000), 100, 5);
 	}
 
 	@Override

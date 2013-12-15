@@ -72,6 +72,7 @@ public class Map {
 				else{
 					if(colorToARGB(new Color(255,125,255,255)) == ARGBcolor){
 						//- Player starting position
+						player.getRect().setLocation(i*TILE_WIDTH, k*TILE_HEIGHT);
 					}
 					tiles[i][k] = new Tile(tileTypes.get(0));
 				}
