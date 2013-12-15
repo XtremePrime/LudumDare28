@@ -81,13 +81,13 @@ public class Player extends Mob{
 		}
 		
 		if(isMoving && !isJumping && !isFalling) animate(entity, delta);
-		/*else if(isJumping && !isFalling){
-			setAnimation(entity, 16);
-			setFrame(entity, 3);
+		else if(isJumping && !isFalling){
+			setAnimation(entity, 1);
+			setFrame(entity, 2);
 		}else if(!isJumping && isFalling){
-			setAnimation(entity, 32);
-			setFrame(entity, 4);
-		}*/else if(!isMoving && !isJumping && !isFalling) setAnimation(entity, 0);
+			setAnimation(entity, 1);
+			setFrame(entity, 3);
+		}else if(!isMoving && !isJumping && !isFalling) setAnimation(entity, 0);
 	}
 	
 	int combinedDelta = 0;
