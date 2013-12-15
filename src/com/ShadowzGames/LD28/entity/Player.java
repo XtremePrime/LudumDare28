@@ -18,6 +18,7 @@ public class Player extends Mob{
 	private int score = 0;
 	private int wave = 0;
 	private boolean isDead = false;
+	private boolean isFalling = false;
 	
 	private Random rand = new Random();
 	

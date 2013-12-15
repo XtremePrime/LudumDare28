@@ -29,7 +29,7 @@ public class MainGame extends BasicGameState{
 		SpriteFactory environment = new SpriteFactory(envSheet);
 		SpriteFactory characters = new SpriteFactory(charSheet);
 		map = new Map(environment);
-		player = new Entity(characters.GetTile(0, 0, 4, 4, Player.class));
+		player = new Entity(characters.GetTile(0, 0, 5, 5, Player.class));
 	}
 
 	@Override
