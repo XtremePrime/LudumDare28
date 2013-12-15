@@ -12,10 +12,10 @@ import com.ShadowzGames.LD28.tile.*;
 public class Map {
 	private final int TILE_ROW = 30, TILE_COL = 40, TILE_WIDTH=16, TILE_HEIGHT=16;
 	public Tile[][] tiles = new Tile[TILE_COL][TILE_ROW];
-	private TileFactory envFactory;
-	private HashMap<Integer, TilePrototype> tileTypes;
+	private SpriteFactory envFactory;
+	private HashMap<Integer, Sprite> tileTypes;
 	
-	public Map(TileFactory environmentFactory){
+	public Map(SpriteFactory environmentFactory){
 		try {
 			init(environmentFactory);
 		} catch (SlickException e) {
@@ -56,7 +56,7 @@ public class Map {
 			for(int k = 0; k < TILE_ROW; ++k){
 				Color tempColor = level.getColor(i, k);
 				System.out.println(colorToARGB(tempColor));
-				TilePrototype tile = tileTypes.get(colorToARGB(tempColor));
+				Sprite tile = tileTypes.get(colorToARGB(tempColor));
 				if(tile != null){
 					tiles[i][k] = new Tile(tile);
 				}
@@ -68,7 +68,7 @@ public class Map {
 		level.destroy();
 	}
 
-	public void init(TileFactory environmentFactory) throws SlickException {
+	public void init(SpriteFactory environmentFactory) throws SlickException {
 		envFactory = environmentFactory;
 		
 		fillTileTypes();
@@ -87,7 +87,7 @@ public class Map {
 	}
 	 
 	private void fillTileTypes() {
-		tileTypes = new HashMap<Integer, TilePrototype>();
+		tileTypes = new HashMap<Integer, Sprite>();
 
 		tileTypes.put(colorToARGB(new Color(0, 0, 0, 0)), envFactory.GetTile(0, AirTile.class));
 		tileTypes.put(colorToARGB(new Color(0, 170, 0, 255)), envFactory.GetTile(1, GrassTile.class)); //- Grass

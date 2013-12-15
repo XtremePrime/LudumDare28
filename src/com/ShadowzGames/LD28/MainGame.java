@@ -7,22 +7,24 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.ShadowzGames.LD28.tile.TileFactory;
 
 public class MainGame extends BasicGameState{
 
 	private Map map;
-	SpriteSheet sheet, charSheet;
+	//private Player player;
+	SpriteSheet envSheet, charSheet;
 	
 	public MainGame(int state){
 	}
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		sheet = new SpriteSheet("data/environment.png", 16, 16);
+		envSheet = new SpriteSheet("data/environment.png", 16, 16);
 		charSheet = new SpriteSheet("data/characters.png", 16, 32);
-		TileFactory environment = new TileFactory(sheet);
+		SpriteFactory environment = new SpriteFactory(envSheet);
+		SpriteFactory characters = new SpriteFactory(charSheet);
 		map = new Map(environment);
+		
 	}
 
 	@Override

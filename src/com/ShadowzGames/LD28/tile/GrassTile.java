@@ -3,7 +3,9 @@ package com.ShadowzGames.LD28.tile;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-public class GrassTile extends TilePrototype{
+import com.ShadowzGames.LD28.Sprite;
+
+public class GrassTile extends Sprite{
 
 	@Override
 	protected void init(){

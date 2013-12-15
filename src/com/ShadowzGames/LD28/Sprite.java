@@ -1,4 +1,4 @@
-package com.ShadowzGames.LD28.tile;
+package com.ShadowzGames.LD28;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -6,15 +6,17 @@ import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Rectangle;
 
-abstract public class TilePrototype {
-
+public class Sprite {
+		
 	protected Image img;
 	protected boolean created = false;
 	private int id;
 	
-	abstract protected void init();
+	protected void init(){
+		
+	
+	}
 	
 	final public void create(Image img, int id){
 		if(this.created) 
@@ -24,19 +26,16 @@ abstract public class TilePrototype {
 		this.id = id;
 		this.created = true;
 		init();
-		//if (tiles[id] != null) throw new RuntimeException("Tile is already set!");
-		//tiles[id] = this;
-		
-	}
-	
-	public void update(GameContainer gc, int delta){
 	}
 	
 	public int getID(){
 		return id;
 	}
 	
-	protected void render(Graphics g, float x, float y){
-		
+	public void render(Graphics g, float x, float y){
 	}
+	
+	public void update(GameContainer gc, int delta){
+	}
+	
 }
