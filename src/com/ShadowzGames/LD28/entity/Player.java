@@ -82,11 +82,9 @@ public class Player extends Mob{
 		
 		if(isMoving && !isJumping && !isFalling) animate(entity, delta);
 		else if(isJumping && !isFalling){
-			setAnimation(entity, 1);
-			setFrame(entity, 2);
+			animateSingle(entity, 1, 2);
 		}else if(!isJumping && isFalling){
-			setAnimation(entity, 1);
-			setFrame(entity, 3);
+			animateSingle(entity, 1, 3);
 		}else if(!isMoving && !isJumping && !isFalling) setAnimation(entity, 0);
 	}
 	
@@ -105,6 +103,20 @@ public class Player extends Mob{
 			nextFrame(entity);
 			combinedDelta = 0;
 		}
+	}
+	
+	private void animateSingle(Entity entity, int row, int frame) {
+		if(previousDir != dir){
+			if(previousDir == Direction.RIGHT && dir == Direction.LEFT ||
+					previousDir == Direction.LEFT && dir == Direction.RIGHT){
+				entity.flip();
+				previousDir = dir;
+			}
+		}
+		
+		setAnimation(entity, row);
+		setFrame(entity, frame);
+
 	}
 
 	private void gravity(Entity e){
