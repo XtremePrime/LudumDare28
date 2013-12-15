@@ -41,7 +41,13 @@ public class Map {
 		return alpha | red | green | blue;
 	}
 	
-	public void loadLevel(String filename) throws SlickException{
+	/**
+	 * Loads a level from filename.
+	 * @param filename
+	 * @throws SlickException
+	 * @throws IndexOutOfBoundsException
+	 */
+	public void loadLevel(String filename) throws SlickException, IndexOutOfBoundsException{
 		Image level;
 		level = new Image(filename);
 		if(level.getWidth() != TILE_COL || level.getHeight() != TILE_ROW){
@@ -53,10 +59,6 @@ public class Map {
 				System.out.println(colorToARGB(tempColor));
 				TilePrototype tile = tileTypes.get(colorToARGB(tempColor));
 				if(tile != null){
-					if(tile instanceof GrassTile){
-						@SuppressWarnings("unused")
-						int c=123;
-					}
 					tiles[i][k] = new Tile(tile);
 				}
 				else{
