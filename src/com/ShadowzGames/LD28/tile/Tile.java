@@ -1,32 +1,25 @@
 package com.ShadowzGames.LD28.tile;
 
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
+
 import org.newdawn.slick.geom.Rectangle;
 
-public class Tile {
-	
-	protected Rectangle tileRect;
-	protected int w = 16, h = 16, x, y;
-	SpriteSheet sheet;
-	
-	private final int id;
-	
-	public Tile(int id, int x, int y) {
-		this.id = id;
-		this.x = x;
-		this.y = y;
-		this.tileRect = new Rectangle(x, y, this.w, this.h);
-		
-		try {
-			this.sheet = new SpriteSheet("data/environment.png", 16, 16);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public Rectangle getRect(){
-		return this.tileRect;
-	}
-	
+import com.ShadowzGames.LD28.SpriteContainer;
+import com.ShadowzGames.LD28.Sprite;
+
+public class Tile extends SpriteContainer {
+        
+        //protected Sprite prototype;
+        //protected Rectangle tileRect;
+        //protected int w = 16, h = 16, x, y;
+        
+        //public static Tile[] tiles = new Tile[80*60];
+        //public static Tile grass = new GrassTile(0);
+        
+        public Tile(Sprite prototype){
+                super(prototype, new Rectangle(0, 0, 16, 16));
+                //this.prototype = prototype;
+                //this.tileRect = new Rectangle(0, 0, 16, 16); // default rectangle size
+        }
+
+        
 }
