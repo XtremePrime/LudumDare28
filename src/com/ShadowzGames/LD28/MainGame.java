@@ -1,5 +1,6 @@
 package com.ShadowzGames.LD28;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -16,6 +17,7 @@ public class MainGame extends BasicGameState{
 	private Map map;
 	private Entity player;
 	SpriteSheet envSheet, charSheet;
+	Animation charAnim;
 	
 	public MainGame(int state){
 	}
@@ -37,7 +39,6 @@ public class MainGame extends BasicGameState{
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		
 	}
 
 	@Override
