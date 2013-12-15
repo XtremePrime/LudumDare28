@@ -26,9 +26,9 @@ public class AnimatedSprite extends Sprite {
 		Rectangle bounds = getBoundingBox();
 		final int x = 0;
 		final int w = (int) (img.getWidth()/bounds.getWidth())-1;
-		final int h = 0;
 		final int height = (int) (img.getHeight()/bounds.getHeight());
 		for(int y = 0; y < height; ++y){
+			int h = y;
 			animation.add(new Animation(new SpriteSheet(img, (int)bounds.getWidth(), (int)bounds.getHeight()), x, y, w, h, false, 100, false));
 		}
 		maxFrame = w;
@@ -106,8 +106,8 @@ public class AnimatedSprite extends Sprite {
 					try{
 						int frame = entity.getAnimationFrame();
 						if(frame > maxFrame) frame = 0; //- Fixing potential index out of range problems by setting framecount to 0
-						
-						Image temp = animation.get(entity.getAnimationIndex()).getImage(frame);
+						int row = entity.getAnimationIndex();
+						Image temp = animation.get(row).getImage(frame);
 						
 						if(entity.isFlipped()) temp = temp.getFlippedCopy(true, false);
 						
