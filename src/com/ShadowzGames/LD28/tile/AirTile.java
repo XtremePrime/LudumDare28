@@ -10,6 +10,5 @@ public class AirTile extends TilePrototype {
 	
 	@Override
 	protected void render(Graphics g, float x, float y){
-		System.out.println("hello~");
 	}
 }

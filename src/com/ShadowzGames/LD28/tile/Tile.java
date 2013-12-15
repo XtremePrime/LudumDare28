@@ -28,5 +28,9 @@ public class Tile {
 	public Rectangle getRect(){
 		return this.tileRect;
 	}
+
+	public <T extends TilePrototype> boolean isInstance(Class<T> other) {
+		return other.isInstance(prototype);
+	}
 	
 }

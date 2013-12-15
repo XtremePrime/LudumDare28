@@ -33,5 +33,6 @@ abstract public class TilePrototype {
 	}
 	
 	protected void render(Graphics g, float x, float y){
+		
 	}
 }
