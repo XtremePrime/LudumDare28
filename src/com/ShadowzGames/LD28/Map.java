@@ -1,5 +1,6 @@
 package com.ShadowzGames.LD28;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.newdawn.slick.Color;
@@ -8,17 +9,22 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.ShadowzGames.LD28.entity.Entity;
+import com.ShadowzGames.LD28.entity.Player;
 import com.ShadowzGames.LD28.tile.*;
 
 public class Map {
-	private final int TILE_ROW = 30, TILE_COL = 40, TILE_WIDTH=16, TILE_HEIGHT=16;
+	public final int TILE_ROW = 30, TILE_COL = 40, TILE_WIDTH=16, TILE_HEIGHT=16;
 	public Tile[][] tiles = new Tile[TILE_COL][TILE_ROW];
+	public ArrayList<Entity> mobs;
+	private Entity player;
 	private SpriteFactory envFactory;
+	private SpriteFactory charFactory;
 	private HashMap<Integer, Sprite> tileTypes;
 	
-	public Map(SpriteFactory environmentFactory, String level){
+	public Map(SpriteFactory environmentFactory, SpriteFactory characterFactory, String level){
 		try {
-			init(environmentFactory, level);
+			init(environmentFactory, characterFactory, level);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -49,6 +55,8 @@ public class Map {
 	 */
 	public void loadLevel(String filename) throws SlickException, IndexOutOfBoundsException{
 		Image level;
+		mobs = new ArrayList<Entity>();
+		player = new Entity(charFactory.GetTile(0, 0, 5, 6, Player.class));
 		level = new Image(filename);
 		if(level.getWidth() != TILE_COL || level.getHeight() != TILE_ROW){
 			throw new IndexOutOfBoundsException("Level size was wrong, got " + level.getWidth() + "x" + level.getHeight() + " expected " + TILE_COL + "x" + TILE_ROW);
@@ -64,7 +72,6 @@ public class Map {
 				else{
 					if(colorToARGB(new Color(255,125,255,255)) == ARGBcolor){
 						//- Player starting position
-						
 					}
 					tiles[i][k] = new Tile(tileTypes.get(0));
 				}
@@ -73,8 +80,9 @@ public class Map {
 		level.destroy();
 	}
 
-	public void init(SpriteFactory environmentFactory, String level) throws SlickException {
+	public void init(SpriteFactory environmentFactory, SpriteFactory characterFactory, String level) throws SlickException {
 		envFactory = environmentFactory;
+		charFactory = characterFactory;
 		
 		fillTileTypes();
 		loadLevel(level);
@@ -111,12 +119,20 @@ public class Map {
 		tileTypes.put(colorToARGB(new Color(255, 190, 0,   255)), envFactory.GetTile(10, ItemTile.class)); //- Star
 	}
 	
+	public void addMob(Entity mob){
+		mobs.add(mob);
+	}
+	
 	public void update(GameContainer gc, int delta){
 		for(int i = 0; i < TILE_COL; ++i){
 			for(int k = 0; k < TILE_ROW; ++k){
 				tiles[i][k].update(gc, delta);
 			}
 		}
+		for (int i = 0; i < mobs.size(); i++) {
+			mobs.get(i).update(gc, delta);
+		}
+		player.update(gc, delta);
 	}
 
 	public void draw(Graphics g) {
@@ -127,6 +143,10 @@ public class Map {
 				tiles[i][k].render(g);
 			}
 		}
+		for (int i = 0; i < mobs.size(); i++) {
+			mobs.get(i).render(g);
+		}
+		player.render(g);
 	}
 
 	public void setTile(int x, int y){
