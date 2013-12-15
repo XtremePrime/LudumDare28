@@ -7,11 +7,14 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.ShadowzGames.LD28.entity.Entity;
+import com.ShadowzGames.LD28.entity.Player;
+
 
 public class MainGame extends BasicGameState{
 
 	private Map map;
-	//private Player player;
+	private Entity player;
 	SpriteSheet envSheet, charSheet;
 	
 	public MainGame(int state){
@@ -24,7 +27,7 @@ public class MainGame extends BasicGameState{
 		SpriteFactory environment = new SpriteFactory(envSheet);
 		SpriteFactory characters = new SpriteFactory(charSheet);
 		map = new Map(environment);
-		
+		player = new Entity(characters.GetTile(0, 0, 4, 4, Player.class));
 	}
 
 	@Override

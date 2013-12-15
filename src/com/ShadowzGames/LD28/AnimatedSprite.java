@@ -20,12 +20,12 @@ public class AnimatedSprite extends Sprite {
 		}
 		animation = new ArrayList<Animation>();
 		Rectangle bounds = getBoundingBox();
-		for(int i = 0; i < img.getHeight() / bounds.getHeight(); ++i){
+		for(int i = 0; i < img.getHeight(); ++i){
 			int x = 0;
 			int y = i;
-			int w = (int) (img.getWidth() / bounds.getWidth());
-			int h = i;
-			animation.add(new Animation(new SpriteSheet(img, x, y), x, y, w, h, false, 0, false));
+			int w = img.getWidth()-1;
+			int h = 0;
+			animation.add(new Animation(new SpriteSheet(img, (int)bounds.getWidth(), (int)bounds.getHeight()), x, y, w, h, false, 100, false));
 		}
 	}
 	
@@ -45,14 +45,16 @@ public class AnimatedSprite extends Sprite {
 	 * @param row Animation row to modify
 	 */
 	public void setDurations(int[] durations, int row){
-		if(durations.length == 0){
-			automatic = false;
-		}
-		else{
-			for (int k = 0; k < durations.length; k++) {
-				animation.get(row).setDuration(k, durations[k]);
+		if(animation != null){
+			if(durations.length == 0){
+				automatic = false;
 			}
-			automatic = true;
+			else{
+				for (int k = 0; k < durations.length; k++) {
+					animation.get(row).setDuration(k, durations[k]);
+				}
+				automatic = true;
+			}
 		}
 	}
 	
@@ -67,18 +69,22 @@ public class AnimatedSprite extends Sprite {
 	
 	@Override
 	public void update(GameContainer gc, SpriteContainer sc, int delta){
-		if(automatic){
-			animation.get(currentRow).update(delta);
+		if(animation != null){
+			if(automatic){
+				animation.get(currentRow).update(delta);
+			}
 		}
 	}
 	
 	@Override
 	public void render(Graphics g, float x, float y){
-		if(automatic){
-			animation.get(currentRow).draw(x, y);
-		}
-		else{
-			animation.get(currentRow).getImage(currentFrame);
+		if(animation != null){
+			if(automatic){
+				animation.get(currentRow).draw(x, y);
+			}
+			else{
+				animation.get(currentRow).getImage(currentFrame);
+			}
 		}
 	}
 }

@@ -15,7 +15,7 @@ public class Player extends Mob{
 	private int wave = 0;
 	private boolean isDead = false;
 	
-	public Player(int x, int y){
+	public Player(){
 		this.health = 10;
 		this.dir = 0;
 		this.moveSpeed = 1;
