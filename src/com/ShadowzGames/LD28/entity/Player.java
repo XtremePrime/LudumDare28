@@ -16,7 +16,7 @@ public class Player extends Mob{
 	private int score = 0;
 	private int wave = 0;
 	private boolean isDead = false;
-	private boolean isFalling = false;
+	private boolean isFalling = true;
 	private boolean isMoving = false;
 	private boolean isJumping = false;
 	private int dX, dY;
@@ -63,18 +63,6 @@ public class Player extends Mob{
 		isMoving = false;
 
 		Rectangle rect = entity.getRect();
-//		if((input.isKeyPressed(Input.KEY_W) || input.isKeyPressed(Input.KEY_UP)) &&
-//			(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))){
-//			isJumping = true;
-//			dY = -65;
-//			return;
-//		}else if((input.isKeyPressed(Input.KEY_W) || input.isKeyPressed(Input.KEY_UP)) &&
-//			(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))){
-//			isJumping = true;
-//			dY = -65;
-//			return;
-//		}
-//		
 		if(input.isKeyPressed(Input.KEY_SPACE) || input.isKeyPressed(Input.KEY_W)){
 			if(!isJumping && !isFalling){
 				isJumping = true;
@@ -82,11 +70,7 @@ public class Player extends Mob{
 			}
 		}
 		
-		if(input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)){
-			this.dir = Direction.DOWN;
-			//TODO crouch?; 
-			//XXX I don't think we'll need crouch, but maybe add tiles that can be dropped through by pushing down?
-		}else if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)){
+		if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)){
 			this.dir = Direction.LEFT;
 			rect.setX(rect.getX() - moveSpeed);
 			isMoving = true;
@@ -96,8 +80,14 @@ public class Player extends Mob{
 			isMoving = true;
 		}
 		
-		if(isMoving) animate(entity, delta);
-		else setAnimation(entity, 0);
+		if(isMoving && !isJumping && !isFalling) animate(entity, delta);
+		/*else if(isJumping && !isFalling){
+			setAnimation(entity, 16);
+			setFrame(entity, 3);
+		}else if(!isJumping && isFalling){
+			setAnimation(entity, 32);
+			setFrame(entity, 4);
+		}*/else if(!isMoving && !isJumping && !isFalling) setAnimation(entity, 0);
 	}
 	
 	int combinedDelta = 0;

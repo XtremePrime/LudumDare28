@@ -68,6 +68,10 @@ public class AnimatedSprite extends Sprite {
 		entity.setAnimationFrame(0);
 	}
 	
+	public void setFrame(Entity entity, int frame){
+		entity.setAnimationFrame(frame);
+	}
+	
 	public void nextFrame(Entity entity){
 		int frame =  entity.getAnimationFrame()+1;
 		if(frame >= maxFrame){
