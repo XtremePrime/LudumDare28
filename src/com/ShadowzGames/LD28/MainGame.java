@@ -72,6 +72,8 @@ public class MainGame extends BasicGameState{
 		if(timer < 0){
 			// TODO Timeout handling!!
 		}
+		
+//		player.getRect().intersects(map.tiles[1][1].getRect())
 	}
 
 	@Override

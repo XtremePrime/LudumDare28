@@ -18,6 +18,8 @@ public class Player extends Mob{
 	private boolean isDead = false;
 	private boolean isFalling = false;
 	private boolean isMoving = false;
+	private boolean isJumping = false;
+	private int dX, dY;
 	
 	private Random rand = new Random();
 	
@@ -40,6 +42,8 @@ public class Player extends Mob{
 		super.update(gc, sc, delta);
 		if(sc instanceof Entity){
 			move(gc, (Entity)sc, delta);
+			if(!isJumping && isFalling) gravity((Entity)sc);
+			if(isJumping && !isFalling) jump((Entity) sc);
 		}
 	}
 	
@@ -57,35 +61,28 @@ public class Player extends Mob{
 	public void move(GameContainer gc, Entity entity, int delta){
 		Input input = gc.getInput();
 		isMoving = false;
-		/*Will use for the weapon direction, no point yet.*/
-		//TODO weapon dir;
-/*		if((input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) &&
-			(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))){
-			this.dir = Direction.UP_RIGHT;
-			this.rect.setX(rect.getX() + moveSpeed); // Moving right, Pointing up-right
-			return;
-		}else if((input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) &&
-			(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))){
-			this.dir = Direction.UP_LEFT;
-			this.rect.setX(rect.getX() - moveSpeed); // Moving left, Pointing up-left
-			return;
-		}
-		if((input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) &&
-			(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))){
-			this.dir = Direction.DOWN_RIGHT;
-			this.rect.setX(rect.getX() + moveSpeed); // Moving right, Pointing down-right
-			return;
-		}else if((input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) &&
-			(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))){
-			this.dir = Direction.DOWN_LEFT;
-			this.rect.setX(rect.getX() - moveSpeed); // Moving left, Pointing down-left
-			return;
-		}*/
+
 		Rectangle rect = entity.getRect();
-		if(input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)){
-			this.dir = Direction.UP;
-			//TODO jump;
-		}else if(input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)){
+//		if((input.isKeyPressed(Input.KEY_W) || input.isKeyPressed(Input.KEY_UP)) &&
+//			(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))){
+//			isJumping = true;
+//			dY = -65;
+//			return;
+//		}else if((input.isKeyPressed(Input.KEY_W) || input.isKeyPressed(Input.KEY_UP)) &&
+//			(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))){
+//			isJumping = true;
+//			dY = -65;
+//			return;
+//		}
+//		
+		if(input.isKeyPressed(Input.KEY_SPACE) || input.isKeyPressed(Input.KEY_W)){
+			if(!isJumping && !isFalling){
+				isJumping = true;
+				dY = -65;
+			}
+		}
+		
+		if(input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)){
 			this.dir = Direction.DOWN;
 			//TODO crouch?; 
 			//XXX I don't think we'll need crouch, but maybe add tiles that can be dropped through by pushing down?
@@ -100,6 +97,7 @@ public class Player extends Mob{
 		}
 		
 		if(isMoving) animate(entity, delta);
+		else setAnimation(entity, 0);
 	}
 	
 	int combinedDelta = 0;
@@ -119,8 +117,20 @@ public class Player extends Mob{
 		}
 	}
 
-	public void jump(){
-		//TODO jump 48/64
+	private void gravity(Entity e){
+		Rectangle rect = e.getRect();
+		if(rect.getY() < 400) rect.setY(rect.getY() + moveSpeed*2);
+		else isFalling = false;
+	}
+	
+	public void jump(Entity sc){
+		Rectangle r = sc.getRect();
+		r.setY(r.getY()-(moveSpeed+1));
+		dY++;
+		if(dY == 0){
+			isJumping = false;
+			isFalling = true;
+		}
 	}
 	
 	public void attack(){
@@ -130,8 +140,4 @@ public class Player extends Mob{
 	private int getAttackDamage(){
 		return rand.nextInt(3)+1;
 	}
-}
-
-enum test{
-	one
 }
