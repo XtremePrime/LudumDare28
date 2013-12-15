@@ -3,6 +3,7 @@ package com.ShadowzGames.LD28.tile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
@@ -26,6 +27,9 @@ abstract public class TilePrototype {
 		//if (tiles[id] != null) throw new RuntimeException("Tile is already set!");
 		//tiles[id] = this;
 		
+	}
+	
+	public void update(GameContainer gc, int delta){
 	}
 	
 	public int getID(){

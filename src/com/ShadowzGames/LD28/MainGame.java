@@ -12,7 +12,7 @@ import com.ShadowzGames.LD28.tile.TileFactory;
 public class MainGame extends BasicGameState{
 
 	private Map map;
-	SpriteSheet sheet;
+	SpriteSheet sheet, charSheet;
 	
 	public MainGame(int state){
 	}
@@ -20,6 +20,7 @@ public class MainGame extends BasicGameState{
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		sheet = new SpriteSheet("data/environment.png", 16, 16);
+		charSheet = new SpriteSheet("data/characters.png", 16, 32);
 		TileFactory environment = new TileFactory(sheet);
 		map = new Map(environment);
 	}

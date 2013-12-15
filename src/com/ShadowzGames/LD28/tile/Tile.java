@@ -3,6 +3,7 @@ package com.ShadowzGames.LD28.tile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
@@ -21,6 +22,9 @@ public class Tile {
 		this.tileRect = new Rectangle(0, 0, 16, 16); // default rectangle size
 	}
 
+	public void update(GameContainer gc, int delta){
+	}
+	
 	final public void render(Graphics g){
 		prototype.render(g, this.tileRect.getX(), this.tileRect.getY());
 	}
