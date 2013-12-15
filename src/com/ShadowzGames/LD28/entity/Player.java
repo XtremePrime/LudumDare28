@@ -1,5 +1,7 @@
 package com.ShadowzGames.LD28.entity;
 
+import java.util.Random;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
@@ -14,6 +16,8 @@ public class Player extends Mob{
 	private int score = 0;
 	private int wave = 0;
 	private boolean isDead = false;
+	
+	private Random rand = new Random();
 	
 	public Player(int x, int y){
 		this.health = 10;
@@ -86,4 +90,15 @@ public class Player extends Mob{
 		}
 	}
 	
+	public void jump(){
+		//TODO jump 48/64
+	}
+	
+	public void attack(){
+		int range = 12;
+	}
+	
+	private int getAttackDamage(){
+		return rand.nextInt(3)+1;
+	}
 }
