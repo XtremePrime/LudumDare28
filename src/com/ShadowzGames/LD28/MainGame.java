@@ -10,7 +10,7 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.ShadowzGames.LD28.objectives.Objective;
+import com.ShadowzGames.LD28.rules.Objective;
 import com.ShadowzGames.LD28.entity.Entity;
 import com.ShadowzGames.LD28.entity.Player;
 

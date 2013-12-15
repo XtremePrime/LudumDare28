@@ -1,4 +1,4 @@
-package com.ShadowzGames.LD28.objectives;
+package com.ShadowzGames.LD28.rules;
 
 import com.ShadowzGames.LD28.Map;
 
