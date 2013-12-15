@@ -57,7 +57,7 @@ public class TileFactory {
 			return empty;
 		}
 		
-		int id = (x*widthCount+y);
+		int id = (x*widthCount+y)+1; //- Offset by one, to match with the GetTile(int id, Class<T> type) algorithm
 		if(id > loadedImages.length){
 			throw new IndexOutOfBoundsException("Couldn't load that an image outside the bounds of the spritesheet.");
 		}

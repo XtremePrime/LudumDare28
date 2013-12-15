@@ -13,7 +13,6 @@ public class Map {
 	private final int TILE_ROW = 30, TILE_COL = 40, TILE_WIDTH=16, TILE_HEIGHT=16;
 	public Tile[][] tiles = new Tile[TILE_COL][TILE_ROW];
 	private TileFactory envFactory;
-//	public int[][] tileSlot = new int[TILE_ROW][TILE_COL];
 	private HashMap<Integer, TilePrototype> tileTypes;
 	
 	public Map(TileFactory environmentFactory){
@@ -43,9 +42,9 @@ public class Map {
 	
 	/**
 	 * Loads a level from filename.
-	 * @param filename
+	 * @param filename Expects an image filename, preferably png.
+	 * @throws IndexOutOfBoundsException If width and height of image doesn't match with map size.
 	 * @throws SlickException
-	 * @throws IndexOutOfBoundsException
 	 */
 	public void loadLevel(String filename) throws SlickException, IndexOutOfBoundsException{
 		Image level;
@@ -74,11 +73,7 @@ public class Map {
 		
 		fillTileTypes();
 		loadLevel("data/L1.png");
-		//for(int i = 0; i < TILE_COL; ++i){
-		//	for(int k = 0; k < TILE_ROW; ++k){
-		//		tiles[i][k] = new Tile(envFactory.GetTile(1, GrassTile.class));
-		//	}
-		//}
+
 		try {
 			for(int i = 0; i < TILE_COL; ++i){
 				for(int k = 0; k < TILE_ROW; ++k){
@@ -95,9 +90,12 @@ public class Map {
 		tileTypes = new HashMap<Integer, TilePrototype>();
 
 		tileTypes.put(colorToARGB(new Color(0, 0, 0, 0)), envFactory.GetTile(0, AirTile.class));
-		tileTypes.put(colorToARGB(new Color(0, 170, 0, 255)), envFactory.GetTile(1, GrassTile.class));
-		tileTypes.put(colorToARGB(new Color(0, 170, 170, 255)), envFactory.GetTile(0, 1, GrassTile.class));
-		tileTypes.put(colorToARGB(new Color(170, 85, 00, 255)), envFactory.GetTile(0, 2, GrassTile.class));
+		tileTypes.put(colorToARGB(new Color(0, 170, 0, 255)), envFactory.GetTile(1, GrassTile.class)); //- Grass
+		tileTypes.put(colorToARGB(new Color(85, 255, 85, 255)), envFactory.GetTile(3, GrassTile.class)); //- Grass, top left corner
+		tileTypes.put(colorToARGB(new Color(28, 113, 0, 255)), envFactory.GetTile(2, GrassTile.class)); //- Grass, top right corner
+		tileTypes.put(colorToARGB(new Color(113, 0, 28, 255)), envFactory.GetTile(1, 1, GrassTile.class)); //- Dirt
+		tileTypes.put(colorToARGB(new Color(113, 0, 113, 255)), envFactory.GetTile(0, 1, GrassTile.class)); //- Dirt to Stone transition
+		tileTypes.put(colorToARGB(new Color(170, 85, 00, 255)), envFactory.GetTile(0, 2, GrassTile.class)); //- Stone
 	}
 
 	public void draw(Graphics g) {
