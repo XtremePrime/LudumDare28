@@ -9,7 +9,7 @@ import com.ShadowzGames.LD28.SpriteContainer;
 import com.ShadowzGames.LD28.Direction;
 
 public class Mob extends AnimatedSprite{
-	protected int moveSpeed = 1;
+	protected float moveSpeed = 0.1f;
 	protected int dir = 0;
 	protected int hurtTime = 0;
 	protected int xKnockback, yKnockback;

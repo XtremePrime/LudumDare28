@@ -8,6 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
+import com.ShadowzGames.LD28.entity.Entity;
+
 public class Sprite {
 		
 	protected Image img;
@@ -46,7 +48,10 @@ public class Sprite {
 		}
 	}
 	
-	public void update(GameContainer gc, SpriteContainer sc, int delta){
-		
+	public void update(GameContainer gc, SpriteContainer sc, int delta){	
+	}
+	
+	public boolean canPass(Entity e){
+		return false;
 	}
 }
