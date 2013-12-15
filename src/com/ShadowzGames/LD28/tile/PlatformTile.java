@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
 import com.ShadowzGames.LD28.Sprite;
 import com.ShadowzGames.LD28.SpriteContainer;
 
-public class GrassTile extends Sprite{
+public class PlatformTile extends Sprite {
 
 	@Override
 	protected void init(){

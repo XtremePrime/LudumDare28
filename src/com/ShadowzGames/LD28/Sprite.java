@@ -12,7 +12,7 @@ public class Sprite {
 		
 	protected Image img;
 	protected boolean created = false;
-	private int id;
+	protected int id;
 	
 	protected void init(){
 		
