@@ -9,10 +9,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
+import com.ShadowzGames.LD28.entity.Entity;
+
 public class AnimatedSprite extends Sprite {
 	ArrayList<Animation> animation;
-	int currentRow = 0;
-	int currentFrame = 0;
+	int maxFrame = 0;
+	//int currentRow = 0;
+	//int currentFrame = 0;
 	boolean automatic = false;
 	@Override
 	public void init(){
@@ -28,6 +31,7 @@ public class AnimatedSprite extends Sprite {
 		for(int y = 0; y < height; ++y){
 			animation.add(new Animation(new SpriteSheet(img, (int)bounds.getWidth(), (int)bounds.getHeight()), x, y, w, h, false, 100, false));
 		}
+		maxFrame = w;
 	}
 	
 	/**
@@ -35,8 +39,8 @@ public class AnimatedSprite extends Sprite {
 	 * Ignores calls to nextFrame when durations.length > 0.
 	 * @param durations
 	 */
-	public void setDurations(int[] durations){
-		setDurations(durations, currentRow);
+	public void setDurations(Entity entity, int[] durations){
+		setDurations(durations, entity.getAnimationIndex());
 	}
 	
 	/**
@@ -59,35 +63,55 @@ public class AnimatedSprite extends Sprite {
 		}
 	}
 	
-	public void setAnimation(int row){
-		currentRow = row;
-		currentFrame = 0;
+	public void setAnimation(Entity entity, int row){
+		entity.setAnimationIndex(row);
+		entity.setAnimationFrame(0);
 	}
 	
-	public void nextFrame(){
-		++currentFrame;
+	public void nextFrame(Entity entity){
+		int frame =  entity.getAnimationFrame()+1;
+		if(frame >= maxFrame){
+			frame = 0;
+		}
+		entity.setAnimationFrame(frame);
 	}
 	
 	@Override
 	public void update(GameContainer gc, SpriteContainer sc, int delta){
-		if(animation != null){
-			if(automatic){
-				animation.get(currentRow).update(delta);
+		Entity entity;
+		if(sc instanceof Entity){
+			entity = (Entity)sc;
+			if(animation != null){
+				if(automatic){
+					animation.get(entity.getAnimationIndex()).update(delta);
+				}
 			}
 		}
 	}
 	
 	@Override
-	public void render(Graphics g, float x, float y){
-		if(animation != null){
-			if(automatic){
-				animation.get(currentRow).draw(x, y);
-			}
-			else{
-				Image temp = animation.get(currentRow).getImage(currentFrame);
-				temp.startUse();
-				temp.drawEmbedded(x, y);
-				temp.endUse();
+	public void render(Graphics g, SpriteContainer sc){
+		Entity entity = null;
+		if(sc instanceof Entity){
+			entity = (Entity)sc;
+			if(animation != null){
+				if(automatic){
+					animation.get(entity.getAnimationIndex()).draw(entity.getRect().getX(), entity.getRect().getY());
+				}
+				else{
+					try{
+						Image temp = animation.get(entity.getAnimationIndex()).getImage(entity.getAnimationFrame());
+						
+						if(entity.isFlipped()) temp = temp.getFlippedCopy(true, false);
+						
+						temp.startUse();
+						temp.drawEmbedded(entity.getRect().getX(), entity.getRect().getY());
+						temp.endUse();
+					}
+					catch(IndexOutOfBoundsException e){
+						System.out.println(e.getMessage());
+					}
+				}
 			}
 		}
 	}

@@ -5,7 +5,6 @@ import com.ShadowzGames.LD28.SpriteContainer;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 
 public class AirTile extends Sprite {
@@ -19,6 +18,6 @@ public class AirTile extends Sprite {
 	}
 	
 	@Override
-	public void render(Graphics g, float x, float y){
+	public void render(Graphics g, SpriteContainer sc){
 	}
 }

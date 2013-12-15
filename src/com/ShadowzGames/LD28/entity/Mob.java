@@ -61,7 +61,7 @@ public class Mob extends AnimatedSprite{
 	}
 	
 	@Override
-	public void render(Graphics g, float x, float y){
-		super.render(g, x, y);
+	public void render(Graphics g, SpriteContainer sc){
+		super.render(g, sc);
 	}
 }

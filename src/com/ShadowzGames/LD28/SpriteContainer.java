@@ -18,7 +18,7 @@ public class SpriteContainer {
 	}
 	
 	final public void render(Graphics g){
-		prototype.render(g, this.rect.getX(), this.rect.getY());
+		prototype.render(g, this);
 	}
 	
 	public Rectangle getRect(){
