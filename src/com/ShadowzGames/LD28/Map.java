@@ -107,6 +107,8 @@ public class Map {
 		tileTypes.put(colorToARGB(new Color(36,  82,  120, 255)), envFactory.GetTile(6, DecorationalTile.class)); //- Platform right corner
 		tileTypes.put(colorToARGB(new Color(81,  81,  81,  255)), envFactory.GetTile(7, DecorationalTile.class)); //- Big rock
 		tileTypes.put(colorToARGB(new Color(255, 255, 85,  255)), envFactory.GetTile(8, DecorationalTile.class)); //- Bees and flowers
+		tileTypes.put(colorToARGB(new Color(255, 0,   125, 255)), envFactory.GetTile(9, DecorationalTile.class)); //- Flowers
+		tileTypes.put(colorToARGB(new Color(255, 190, 0,   255)), envFactory.GetTile(10, ItemTile.class)); //- Star
 	}
 	
 	public void update(GameContainer gc, int delta){
@@ -121,7 +123,7 @@ public class Map {
 		g.setColor(Color.magenta);
 		for(int i = 0; i < TILE_COL; ++i){
 			for(int k = 0; k < TILE_ROW; ++k){
-				g.drawRect(i * 16, k * 16, 16, 16);
+				//g.drawRect(i * 16, k * 16, 16, 16);
 				tiles[i][k].render(g);
 			}
 		}

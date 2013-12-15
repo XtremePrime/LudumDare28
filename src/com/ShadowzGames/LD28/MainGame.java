@@ -4,12 +4,13 @@ package com.ShadowzGames.LD28;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import com.ShadowzGames.LD28.objectives.Objective;
 
+import com.ShadowzGames.LD28.objectives.Objective;
 import com.ShadowzGames.LD28.entity.Entity;
 import com.ShadowzGames.LD28.entity.Player;
 
@@ -21,9 +22,13 @@ public class MainGame extends BasicGameState{
 	SpriteSheet envSheet, charSheet;
 	Animation charAnim;
 	String[] levelList;
+	String[] backgroundList;
 	Objective[] objectiveList;
+	Image currentBackground; 
 	long timer;
 	int currentLevel = 0; 
+	SpriteFactory environment;
+	SpriteFactory characters;
 	
 	public MainGame(int state){
 	}
@@ -31,14 +36,16 @@ public class MainGame extends BasicGameState{
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		levelList = new String[]{"data/L1.png", "data/L2.png"};
+		backgroundList = new String[]{"data/L1Back.png", "data/L1Back.png"};
 		objectiveList = new Objective[]{Objective.KillAll, Objective.ReachStar};
 		
 		envSheet = new SpriteSheet("data/environment.png", 16, 16);
 		charSheet = new SpriteSheet("data/characters.png", 16, 32);
-		SpriteFactory environment = new SpriteFactory(envSheet);
-		SpriteFactory characters = new SpriteFactory(charSheet);
-		map = new Map(environment, levelList[currentLevel]);
+		environment = new SpriteFactory(envSheet);
+		characters = new SpriteFactory(charSheet);
 		player = new Entity(characters.GetTile(0, 0, 5, 6, Player.class));
+		map = new Map(environment, levelList[currentLevel]);
+		currentBackground = new Image(backgroundList[currentLevel]);
 		resetTimer();
 	}
 	public void resetTimer(){
@@ -48,6 +55,12 @@ public class MainGame extends BasicGameState{
 	public void levelUp(){
 		if(currentLevel + 1 < levelList.length){
 			currentLevel++;
+			try {
+				map = new Map(environment, levelList[currentLevel]);
+				currentBackground = new Image(backgroundList[currentLevel]);
+			} catch (SlickException e) {
+				
+			}
 		}
 		else{
 			//TODO VICTORY!! Player passed all levels.
@@ -57,6 +70,10 @@ public class MainGame extends BasicGameState{
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		g.drawString(""+(timer/1000), 20, 5);
+		
+		currentBackground.startUse();
+		currentBackground.drawEmbedded(0, 0);
+		currentBackground.endUse();
 		map.draw(g);
 		player.render(g);
 	}
