@@ -77,8 +77,8 @@ public class MainGame extends BasicGameState{
 	
 	public void mobSpawner(){
 		Sprite[] mobList = new Sprite[]{ 
-				characters.GetTile(4, 0, 5, 1, Mob.class), //- Robo-Slug
-				characters.GetTile(4, 1, 5, 1, Mob.class)  //- Slime-warrior
+				characters.GetTile(4, 0, 9, 0, Mob.class), //- Robo-Slug
+				characters.GetTile(4, 1, 9, 1, Mob.class)  //- Slime-warrior
 				};
 		
 		Spawner spawn = spawnerList[currentLevel];
