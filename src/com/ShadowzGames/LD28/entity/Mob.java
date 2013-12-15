@@ -3,11 +3,11 @@ package com.ShadowzGames.LD28.entity;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Rectangle;
 
+import com.ShadowzGames.LD28.AnimatedSprite;
 import com.ShadowzGames.LD28.SpriteContainer;
 import com.ShadowzGames.LD28.Direction;
-import com.ShadowzGames.LD28.Sprite;
 
-public class Mob extends Sprite{
+public class Mob extends AnimatedSprite{
 	protected int moveSpeed = 1;
 	protected int dir = 0;
 	protected int hurtTime = 0;
@@ -21,6 +21,7 @@ public class Mob extends Sprite{
 
 	@Override
 	public void update(GameContainer gc, SpriteContainer sc, int delta) {
+		super.update(gc, sc, delta);
 		tickCount++;
 		if(sc instanceof Entity){
 			Entity entity = (Entity)sc;

@@ -46,7 +46,7 @@ public class Sprite {
 		}
 	}
 	
-	public void update(GameContainer gc, SpriteContainer container, int delta){
+	public void update(GameContainer gc, SpriteContainer sc, int delta){
+		
 	}
-	
 }

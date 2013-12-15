@@ -28,6 +28,10 @@ public class SpriteFactory {
 		return GetTile(x, y, AirTile.class);
 	}
 	
+	public Sprite GetTile(int x, int y, int w, int h){
+		return GetTile(x, y, w, h, AirTile.class);
+	}
+	
 	/**
 	 * 
 	 * @param id ID for the tile, uses the reverse conversion of x*widthCount+y to calculate its position on the chart.
@@ -55,28 +59,28 @@ public class SpriteFactory {
 	 * @return  The tile of the type you requested
 	 */
 	public <T extends Sprite> Sprite GetTile(int x, int y, Class<T> type){
-		if(x < 0 || y < 0){
-			//- Returns a tile with a null image, for an empty space
-			return empty;
-		}
+//		if(x < 0 || y < 0){
+//			//- Returns a tile with a null image, for an empty space
+//			return empty;
+//		}
+//		
+//		int id = (x*widthCount+y)+1; //- Offset by one, to match with the GetTile(int id, Class<T> type) algorithm
+//		if(id > loadedImages.length){
+//			throw new IndexOutOfBoundsException("Couldn't load that an image outside the bounds of the spritesheet.");
+//		}
+//		if(loadedImages[id] == null){
+//			Image temp = ss.getSubImage(x, y);
+//			try {
+//				loadedImages[id] = (Sprite)type.newInstance();
+//			} catch (InstantiationException e) {
+//				e.printStackTrace();
+//			} catch (IllegalAccessException e) {
+//				e.printStackTrace();
+//			}
+//			loadedImages[id].create(temp, id);
+//		}
 		
-		int id = (x*widthCount+y)+1; //- Offset by one, to match with the GetTile(int id, Class<T> type) algorithm
-		if(id > loadedImages.length){
-			throw new IndexOutOfBoundsException("Couldn't load that an image outside the bounds of the spritesheet.");
-		}
-		if(loadedImages[id] == null){
-			Image temp = ss.getSubImage(x, y);
-			try {
-				loadedImages[id] = (Sprite)type.newInstance();
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-			loadedImages[id].create(temp, id);
-		}
-		
-		return loadedImages[id];
+		return GetTile(x, y, 1, 1, type);
 	}
 	
 	/**

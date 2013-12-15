@@ -22,7 +22,6 @@ public class Player extends Mob{
 		this.score = 0;
 		this.wave = 0;
 		this.isDead = false;
-		
 	}
 	
 	@Override
@@ -76,7 +75,8 @@ public class Player extends Mob{
 			//TODO jump;
 		}else if(input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)){
 			this.dir = Direction.DOWN;
-			//TODO crouch?;
+			//TODO crouch?; 
+			//XXX I don't think we'll need crouch, but maybe add tiles that can be dropped through by pushing down?
 		}else if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)){
 			this.dir = Direction.LEFT;
 			rect.setX(rect.getX() - moveSpeed);
