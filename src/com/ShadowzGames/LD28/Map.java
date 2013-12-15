@@ -3,6 +3,7 @@ package com.ShadowzGames.LD28;
 import java.util.HashMap;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -95,6 +96,14 @@ public class Map {
 		tileTypes.put(colorToARGB(new Color(113, 0, 28, 255)), envFactory.GetTile(1, 1, GrassTile.class)); //- Dirt
 		tileTypes.put(colorToARGB(new Color(113, 0, 113, 255)), envFactory.GetTile(0, 1, GrassTile.class)); //- Dirt to Stone transition
 		tileTypes.put(colorToARGB(new Color(170, 85, 00, 255)), envFactory.GetTile(0, 2, GrassTile.class)); //- Stone
+	}
+	
+	public void update(GameContainer gc, int delta){
+		for(int i = 0; i < TILE_COL; ++i){
+			for(int k = 0; k < TILE_ROW; ++k){
+				tiles[i][k].update(gc, delta);
+			}
+		}
 	}
 
 	public void draw(Graphics g) {

@@ -35,10 +35,13 @@ public class MainGame extends BasicGameState{
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		map.draw(g);
+		player.render(g);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+		map.update(gc,delta);
+		player.update(gc, delta);
 	}
 
 	@Override

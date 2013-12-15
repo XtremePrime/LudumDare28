@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -18,14 +19,14 @@ public class AnimatedSprite extends Sprite {
 		if(img == null){
 			return; //- Ignores sprites without images
 		}
-		//animation = new ArrayList<Animation>();
+		animation = new ArrayList<Animation>();
 		Rectangle bounds = getBoundingBox();
-		for(int i = 0; i < img.getHeight(); ++i){
-			int x = 0;
-			int y = i;
-			int w = img.getWidth()-1;
-			int h = 0;
-			//animation.add(new Animation(new SpriteSheet(img, (int)bounds.getWidth(), (int)bounds.getHeight()), x, y, w, h, false, 100, false));
+		final int x = 0;
+		final int w = (int) (img.getWidth()/bounds.getWidth())-1;
+		final int h = 0;
+		final int height = (int) (img.getHeight()/bounds.getHeight());
+		for(int y = 0; y < height; ++y){
+			animation.add(new Animation(new SpriteSheet(img, (int)bounds.getWidth(), (int)bounds.getHeight()), x, y, w, h, false, 100, false));
 		}
 	}
 	
@@ -83,7 +84,10 @@ public class AnimatedSprite extends Sprite {
 				animation.get(currentRow).draw(x, y);
 			}
 			else{
-				animation.get(currentRow).getImage(currentFrame);
+				Image temp = animation.get(currentRow).getImage(currentFrame);
+				temp.startUse();
+				temp.drawEmbedded(x, y);
+				temp.endUse();
 			}
 		}
 	}

@@ -4,6 +4,8 @@ import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -41,12 +43,17 @@ public class Player extends Mob{
 		}
 	}
 	
+	@Override
+	public void render(Graphics g, float x, float y){
+		super.render(g, x, y);
+	}
+	
 	/**
 	 * The player's mobility function.
 	 * @param gc - The GameContainer. A bit self explanatory
+	 * @param entity - The entity that's visible on the gameplan, requesting to move.
 	 * @param delta - Still WIP, but it's the delta between current frame and last frame.
-	 * 
-	 * */
+	 **/
 	public void move(GameContainer gc, Entity entity, int delta){
 		Input input = gc.getInput();
 		/*Will use for the weapon direction, no point yet.*/

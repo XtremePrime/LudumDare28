@@ -1,6 +1,7 @@
 package com.ShadowzGames.LD28.entity;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.ShadowzGames.LD28.AnimatedSprite;
@@ -57,5 +58,10 @@ public class Mob extends AnimatedSprite{
 		knockback(sc, dir, 3);
 		health -= dmg;
 		hurtTime = 10;
+	}
+	
+	@Override
+	public void render(Graphics g, float x, float y){
+		super.render(g, x, y);
 	}
 }
