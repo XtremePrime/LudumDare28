@@ -103,11 +103,14 @@ public class AnimatedSprite extends Sprite {
 					animation.get(entity.getAnimationIndex()).draw(entity.getRect().getX(), entity.getRect().getY());
 				}
 				else{
+					int frame = 0;
+					int row = 0;
+					Image temp = null;
 					try{
-						int frame = entity.getAnimationFrame();
+						frame = entity.getAnimationFrame();
 						if(frame > maxFrame) frame = 0; //- Fixing potential index out of range problems by setting framecount to 0
-						int row = entity.getAnimationIndex();
-						Image temp = animation.get(row).getImage(frame);
+						row = entity.getAnimationIndex();
+						temp = animation.get(row).getImage(frame);
 						
 						if(entity.isFlipped()) temp = temp.getFlippedCopy(true, false);
 						
@@ -116,7 +119,7 @@ public class AnimatedSprite extends Sprite {
 						temp.endUse();
 					}
 					catch(IndexOutOfBoundsException e){
-						System.out.println(e.getMessage());
+						System.out.println(temp);
 					}
 				}
 			}

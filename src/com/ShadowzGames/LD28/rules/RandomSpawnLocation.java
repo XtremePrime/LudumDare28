@@ -22,12 +22,12 @@ public class RandomSpawnLocation implements Spawner {
 
 	@Override
 	public int getMinDelay() {
-		return 1500 - level*180;
+		return 3000 - level*180;
 	}
 
 	@Override
 	public int getMaxDelay() {
-		return 4000 - level*200;
+		return 10000 - level*300;
 	}
 
 	@Override

@@ -101,7 +101,7 @@ public class SpriteFactory {
 			return empty;
 		}
 		
-		int id = (x*widthCount+y)+1; //- Offset by one, to match with the GetTile(int id, Class<T> type) algorithm
+		int id = (x+y*widthCount)+1; //- Offset by one, to match with the GetTile(int id, Class<T> type) algorithm
 		if(id > loadedImages.length){
 			throw new IndexOutOfBoundsException("Couldn't load that an image outside the bounds of the spritesheet.");
 		}
