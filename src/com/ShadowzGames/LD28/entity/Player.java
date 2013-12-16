@@ -9,6 +9,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 import com.ShadowzGames.LD28.Direction;
 import com.ShadowzGames.LD28.SpriteContainer;
+import com.ShadowzGames.LD28.tile.Tile;
 
 public class Player extends Mob{
 	
@@ -146,4 +147,5 @@ public class Player extends Mob{
 	private int getAttackDamage(){
 		return rand.nextInt(3)+1;
 	}
+	
 }

@@ -7,6 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 import com.ShadowzGames.LD28.AnimatedSprite;
 import com.ShadowzGames.LD28.SpriteContainer;
 import com.ShadowzGames.LD28.Direction;
+import com.ShadowzGames.LD28.tile.Tile;
 
 public class Mob extends AnimatedSprite{
 	protected final float gravity = 0.005f;
@@ -87,6 +88,21 @@ public class Mob extends AnimatedSprite{
 			//fallTime = 0;
 			e.setVelocityY(0);
 			e.setFalling(false);
+		}
+	}
+
+	@Override
+	public void collidedWith(Entity self, SpriteContainer other){
+		if(other instanceof Tile){
+			Tile tile = (Tile)other;
+			float playerbottom = self.getRect().getY()+self.getRect().getHeight();
+			float tiletop = tile.getRect().getY();
+			if(tiletop < playerbottom + 8 && tiletop <= playerbottom){
+				self.setVelocityY(0);
+				self.setJumping(false);
+				self.setFalling(false);
+				self.getRect().setY(tiletop - self.getRect().getHeight());
+			}
 		}
 	}
 }

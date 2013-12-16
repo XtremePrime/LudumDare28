@@ -10,6 +10,11 @@ public class GrassTile extends Sprite{
 	@Override
 	protected void init(){
 	}
+	
+	@Override
+	public boolean isCollidable(){
+		return true;
+	}
 
 	@Override
 	public void render(Graphics g, SpriteContainer sc){

@@ -40,6 +40,10 @@ public class Sprite {
 		return id;
 	}
 	
+	public boolean isCollidable(){
+		return false;
+	}
+	
 	public void render(Graphics g, SpriteContainer sc){
 		if(img != null){
 			img.startUse();
@@ -53,5 +57,14 @@ public class Sprite {
 	
 	public boolean canPass(Entity e){
 		return false;
+	}
+
+	/**
+	 * Override this to handle collisions!
+	 * @param self
+	 * @param other
+	 */
+	public void collidedWith(Entity self, SpriteContainer other){
+		
 	}
 }

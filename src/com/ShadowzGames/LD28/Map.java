@@ -109,8 +109,8 @@ public class Map {
 		tileTypes.put(colorToARGB(new Color(85,  255, 85,  255)), envFactory.GetTile(3, GrassTile.class)); //- Grass, top left corner
 		tileTypes.put(colorToARGB(new Color(28,  113, 0,   255)), envFactory.GetTile(2, GrassTile.class)); //- Grass, top right corner
 		tileTypes.put(colorToARGB(new Color(113, 0,   28,  255)), envFactory.GetTile(1, 1, GrassTile.class)); //- Dirt
-		tileTypes.put(colorToARGB(new Color(113, 0,   113, 255)), envFactory.GetTile(0, 1, GrassTile.class)); //- Dirt to Stone transition
-		tileTypes.put(colorToARGB(new Color(170, 85,  0,   255)), envFactory.GetTile(0, 2, GrassTile.class)); //- Stone
+		tileTypes.put(colorToARGB(new Color(113, 0,   113, 255)), envFactory.GetTile(0, 1, DecorationalTile.class)); //- Dirt to Stone transition
+		tileTypes.put(colorToARGB(new Color(170, 85,  0,   255)), envFactory.GetTile(0, 2, DecorationalTile.class)); //- Stone
 		tileTypes.put(colorToARGB(new Color(0,   190, 255, 255)), envFactory.GetTile(4, PlatformTile.class)); //- Platform left corner
 		tileTypes.put(colorToARGB(new Color(47,  124, 139, 255)), envFactory.GetTile(5, PlatformTile.class)); //- Platform middle
 		tileTypes.put(colorToARGB(new Color(36,  82,  120, 255)), envFactory.GetTile(6, DecorationalTile.class)); //- Platform right corner
@@ -128,12 +128,16 @@ public class Map {
 		for(int i = 0; i < TILE_COL; ++i){
 			for(int k = 0; k < TILE_ROW; ++k){
 				tiles[i][k].update(gc, delta);
+				if(tiles[i][k].collide(player)){
+					player.collidedWith(tiles[i][k]);
+				}
 			}
 		}
 		for (int i = 0; i < mobs.size(); i++) {
 			mobs.get(i).update(gc, delta);
 		}
 		player.update(gc, delta);
+		
 	}
 
 	public void draw(Graphics g) {
