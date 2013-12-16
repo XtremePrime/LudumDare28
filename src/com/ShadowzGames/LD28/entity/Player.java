@@ -2,6 +2,7 @@ package com.ShadowzGames.LD28.entity;
 
 import java.util.Random;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -17,6 +18,10 @@ public class Player extends Mob{
 	private int enemiesKilled = 0;
 	private int score = 0;
 	private int wave = 0;
+	private int attackRange = 16;
+	private int attackTime = 0;
+	private boolean isAttacking = false;
+	private Rectangle attackRect;
 //	private boolean isDead = false;
 //	private boolean isFalling = true;
 //	private boolean isMoving = false;
@@ -44,6 +49,7 @@ public class Player extends Mob{
 		if(sc instanceof Entity){
 			Entity entity = (Entity)sc;
 			move(gc, entity, delta);
+			if(isAttacking) attack(entity, delta, this.dir);
 			if(entity.isJumping() || entity.isFalling()) gravity(entity, delta);
 			//if(entity.isJumping() && !entity.isFalling()) jump(entity, delta);
 		}
@@ -52,6 +58,9 @@ public class Player extends Mob{
 	@Override
 	public void render(Graphics g, SpriteContainer sc){
 		super.render(g, sc);
+		g.setColor(Color.magenta);
+		//Attack debug purposes.
+		if(isAttacking) g.fillRect(attackRect.getX(), attackRect.getY(), attackRect.getWidth(), attackRect.getHeight());
 	}
 	
 	/**
@@ -63,9 +72,9 @@ public class Player extends Mob{
 	public void move(GameContainer gc, Entity entity, int delta){
 		Input input = gc.getInput();
 		entity.setMoving(false);
-
 		Rectangle rect = entity.getRect();
-		if(input.isKeyPressed(Input.KEY_SPACE) || input.isKeyPressed(Input.KEY_W)){
+		//Actions
+		if(input.isKeyPressed(Input.KEY_W) || input.isKeyPressed(Input.KEY_UP)){
 			if(!entity.isJumping() && !entity.isFalling()){
 				entity.setJumping(true);
 				entity.setVelocityY(-40);
@@ -73,7 +82,13 @@ public class Player extends Mob{
 				//jumpTime = 0;
 			}
 		}
-		
+		if(input.isKeyPressed(Input.KEY_SPACE) || input.isKeyPressed(Input.KEY_C)){
+			if(!isAttacking){
+				isAttacking = true;
+				Sound.ATTACK.play();
+			}
+		}
+		//Move Directions
 		if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)){
 			this.dir = Direction.LEFT;
 			rect.setX(rect.getX() - moveSpeed);
@@ -142,8 +157,16 @@ public class Player extends Mob{
 		}
 	}
 	
-	public void attack(){
-		int range = 12;
+	public void attack(Entity e, int delta, int dir){
+		attackTime += delta;
+		if(dir == Direction.RIGHT) attackRect = new Rectangle(e.getRect().getX()+16, e.getRect().getY()+5, attackRange, 32-5);
+		else if(dir == Direction.LEFT) attackRect = new Rectangle(e.getRect().getX()-16, e.getRect().getY()+5, attackRange, 32-5);
+		
+		if(attackTime >= 75){
+			attackTime = 0; isAttacking = false;
+			attackRect.setX(0); attackRect.setY(0); attackRect.setWidth(0); attackRect.setHeight(0); 
+			return;
+		}
 	}
 	
 	private int getAttackDamage(){
