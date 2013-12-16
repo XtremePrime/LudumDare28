@@ -15,6 +15,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.ShadowzGames.LD28.rules.Objective;
 import com.ShadowzGames.LD28.rules.Spawner;
+import com.ShadowzGames.LD28.tile.DecorationalTile;
+import com.ShadowzGames.LD28.tile.Tile;
 import com.ShadowzGames.LD28.entity.Entity;
 import com.ShadowzGames.LD28.entity.Mob;
 import com.ShadowzGames.LD28.entity.Player;
@@ -24,18 +26,20 @@ public class MainGame extends BasicGameState{
 
 	private Map map;
 	private Random rng = new Random();
-	SpriteSheet envSheet, charSheet;
+	SpriteSheet envSheet, charSheet, iconSheet;
 	Animation charAnim;
 	String[] levelList;
 	String[] backgroundList;
 	Objective[] objectiveList;
 	Spawner[] spawnerList;
 	Image currentBackground; 
+	Tile hourglass;
 	long timer;
 	long mobTimer;
 	int currentLevel = 0; 
 	SpriteFactory environment;
 	SpriteFactory characters;
+	SpriteFactory icons;
 	
 	public MainGame(int state){
 	}
@@ -49,11 +53,16 @@ public class MainGame extends BasicGameState{
 		
 		envSheet = new SpriteSheet("data/environment.png", 16, 16);
 		charSheet = new SpriteSheet("data/characters.png", 16, 32);
+		iconSheet = new SpriteSheet("data/icons.png", 16, 16);
 		environment = new SpriteFactory(envSheet);
 		characters = new SpriteFactory(charSheet);
+		icons = new SpriteFactory(iconSheet);
 		map = new Map(environment, characters, levelList[currentLevel]);
 		currentBackground = new Image(backgroundList[currentLevel]);
 		resetTimer();
+
+		hourglass = new Tile(icons.GetTile(1, DecorationalTile.class));
+		hourglass.getRect().setLocation(80, 5);
 	}
 	public void resetTimer(){
 		timer = 60000L;
@@ -107,6 +116,7 @@ public class MainGame extends BasicGameState{
 		map.draw(g);
 		g.setColor(new Color(0,0,0,255));
 		g.drawString(""+(timer/1000), 100, 5);
+		hourglass.render(g);
 	}
 
 	@Override

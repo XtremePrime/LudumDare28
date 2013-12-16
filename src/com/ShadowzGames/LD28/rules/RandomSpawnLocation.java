@@ -6,9 +6,10 @@ import com.ShadowzGames.LD28.Map;
 import com.ShadowzGames.LD28.Sprite;
 import com.ShadowzGames.LD28.entity.Entity;
 import com.ShadowzGames.LD28.entity.Mob;
+import com.ShadowzGames.LD28.tile.AirTile;
 
 public class RandomSpawnLocation implements Spawner {
-	int level = 3;
+	int level = 1;
 	Random r;
 	@Override
 	public void setDificulty(int level) {
@@ -22,12 +23,12 @@ public class RandomSpawnLocation implements Spawner {
 
 	@Override
 	public int getMinDelay() {
-		return 3000 - level*180;
+		return 5000 - (level*180);
 	}
 
 	@Override
 	public int getMaxDelay() {
-		return 10000 - level*300;
+		return 10000 - (level*300);
 	}
 
 	@Override
@@ -36,13 +37,19 @@ public class RandomSpawnLocation implements Spawner {
 			r = new Random();
 		}
 		int i = Math.abs(r.nextInt() % availableMobs.length);
-		int x = Math.abs(r.nextInt() % (map.TILE_COL * map.TILE_WIDTH));
-		int y = Math.abs(r.nextInt() % (map.TILE_ROW * map.TILE_HEIGHT));
+		int x = 0;
+		int y = 0;
+		//do{
+			x = Math.abs(r.nextInt() % (map.TILE_COL * map.TILE_WIDTH));
+			y = Math.abs(r.nextInt() % (map.TILE_ROW * map.TILE_HEIGHT));
+		//} while(!map.getTile(x/map.TILE_WIDTH, y/map.TILE_HEIGHT).isInstance(AirTile.class));
 		
 		Entity e = new Entity(availableMobs[i]);
 		
 		e.getRect().setLocation(x, y);
-		
+		if( x > (map.TILE_COL * map.TILE_WIDTH)/2){
+			e.flip();
+		}
 		return e;
 	}
 }

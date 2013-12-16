@@ -153,6 +153,7 @@ public class Map {
 	public void setTile(int x, int y){
 	}
 	
-	public void getTile(int x, int y){
+	public Tile getTile(int x, int y){
+		return tiles[x][y];
 	}
 }
