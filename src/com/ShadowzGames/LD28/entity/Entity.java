@@ -2,6 +2,7 @@ package com.ShadowzGames.LD28.entity;
 
 import com.ShadowzGames.LD28.SpriteContainer;
 import com.ShadowzGames.LD28.Sprite;
+import com.ShadowzGames.LD28.tile.Tile;
 
 public class Entity extends SpriteContainer {
 	public boolean removed;
@@ -107,5 +108,9 @@ public class Entity extends SpriteContainer {
 			this.velX = velX;
 		else
 			this.velX = 50;
+	}
+
+	public void collidedWith(SpriteContainer sc){
+		prototype.collidedWith(this, sc);
 	}
 }
