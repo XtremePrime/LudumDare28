@@ -114,8 +114,8 @@ public class Mob extends AnimatedSprite{
 				}
 				if(self.getVelocityX() > 0){
 					// TODO Implement sideblocking!
-					self.setVelocityX(0);
-					self.setMoving(false);
+//					self.setVelocityX(0);
+//					self.setMoving(false);
 				}
 			}
 			self.setColliding(true);
