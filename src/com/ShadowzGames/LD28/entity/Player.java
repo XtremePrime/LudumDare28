@@ -8,6 +8,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.ShadowzGames.LD28.Direction;
+import com.ShadowzGames.LD28.Sound;
 import com.ShadowzGames.LD28.SpriteContainer;
 import com.ShadowzGames.LD28.tile.Tile;
 
@@ -68,6 +69,7 @@ public class Player extends Mob{
 			if(!entity.isJumping() && !entity.isFalling()){
 				entity.setJumping(true);
 				entity.setVelocityY(-40);
+				Sound.JUMP.play();
 				//jumpTime = 0;
 			}
 		}
