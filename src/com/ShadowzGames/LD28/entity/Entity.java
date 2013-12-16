@@ -15,6 +15,7 @@ public class Entity extends SpriteContainer {
 	private boolean jumping = false;
 	private float velY = 1;
 	private float velX = 0;
+	private boolean collided;
 	
 	public Entity(Sprite prototype){
 		super(prototype, prototype.getBoundingBox());
@@ -112,5 +113,13 @@ public class Entity extends SpriteContainer {
 
 	public void collidedWith(SpriteContainer sc){
 		prototype.collidedWith(this, sc);
+	}
+
+	public void setColliding(boolean state) {
+		this.collided = state;
+	}
+	
+	public boolean isColliding(){
+		return this.collided;
 	}
 }

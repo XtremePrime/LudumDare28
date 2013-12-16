@@ -29,12 +29,14 @@ public class Mob extends AnimatedSprite{
 		tickCount++;
 		if(sc instanceof Entity){
 			Entity entity = (Entity)sc;
-			if(entity.isFalling()) gravity(entity, delta);
+			if(entity.isFalling() || entity.isColliding()) gravity(entity, delta);
 			if (health <= 0) {
 				entity.die();
 			}
 			if (hurtTime > 0) hurtTime--;
+			entity.setColliding(false);
 		}
+		
 	}
 
 	public void knockback(Entity sc, int dir, int dist){
@@ -105,5 +107,6 @@ public class Mob extends AnimatedSprite{
 				self.getRect().setY(tiletop - self.getRect().getHeight());
 			}
 		}
+		self.setColliding(true);
 	}
 }
