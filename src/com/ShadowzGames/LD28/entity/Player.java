@@ -19,17 +19,16 @@ public class Player extends Mob{
 //	private boolean isFalling = true;
 //	private boolean isMoving = false;
 //	private boolean isJumping = false;
-	private int dX, dY;
+	//private int dX, dY;
 	
 	private Random rand = new Random();
 	
 	public Player(){
 		this.health = 10;
 		this.dir = 0;
-		this.moveSpeed = 1;
+		this.moveSpeed = 1.6f;
 		this.score = 0;
 		this.wave = 0;
-		this.isDead = false;
 	}
 	
 	@Override
@@ -39,11 +38,12 @@ public class Player extends Mob{
 	
 	@Override
 	public void update(GameContainer gc, SpriteContainer sc, int delta){
-		super.update(gc, sc, delta);
+		//super.update(gc, sc, delta); //- You don't need to run Mob's update as well, or you'll get double the gravity xD
 		if(sc instanceof Entity){
-			move(gc, (Entity)sc, delta);
-			if(!isJumping && isFalling) gravity((Entity)sc);
-			if(isJumping && !isFalling) jump((Entity) sc);
+			Entity entity = (Entity)sc;
+			move(gc, entity, delta);
+			if(entity.isJumping() || entity.isFalling()) gravity(entity, delta);
+			//if(entity.isJumping() && !entity.isFalling()) jump(entity, delta);
 		}
 	}
 	
@@ -60,32 +60,33 @@ public class Player extends Mob{
 	 **/
 	public void move(GameContainer gc, Entity entity, int delta){
 		Input input = gc.getInput();
-		isMoving = false;
+		entity.setMoving(false);
 
 		Rectangle rect = entity.getRect();
 		if(input.isKeyPressed(Input.KEY_SPACE) || input.isKeyPressed(Input.KEY_W)){
-			if(!isJumping && !isFalling){
-				isJumping = true;
-				dY = -65;
+			if(!entity.isJumping() && !entity.isFalling()){
+				entity.setJumping(true);
+				entity.setVelocityY(-40);
+				//jumpTime = 0;
 			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)){
 			this.dir = Direction.LEFT;
 			rect.setX(rect.getX() - moveSpeed);
-			isMoving = true;
+			entity.setMoving(true);
 		}else if(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)){
 			this.dir = Direction.RIGHT;
 			rect.setX(rect.getX() + moveSpeed);
-			isMoving = true;
+			entity.setMoving(true);
 		}
 		
-		if(isMoving && !isJumping && !isFalling) animate(entity, delta);
-		else if(isJumping && !isFalling){
+		if(entity.isMoving() && !entity.isJumping() && !entity.isFalling()) animate(entity, delta);
+		else if(entity.isJumping() && !entity.isFalling()){
 			animateSingle(entity, 1, 2);
-		}else if(!isJumping && isFalling){
+		}else if(!entity.isJumping() && entity.isFalling()){
 			animateSingle(entity, 1, 3);
-		}else if(!isMoving && !isJumping && !isFalling) setAnimation(entity, 0);
+		}else if(!entity.isMoving() && !entity.isJumping() && !entity.isFalling()) setAnimation(entity, 0);
 	}
 	
 	int combinedDelta = 0;
@@ -116,20 +117,25 @@ public class Player extends Mob{
 		
 		setAnimation(entity, row);
 		setFrame(entity, frame);
-
 	}
 
-	protected void gravity(Entity e){
-		super.gravity(e);
+	@Override
+	protected void gravity(Entity e, int delta){
+		super.gravity(e, delta);
 	}
 	
-	public void jump(Entity sc){
-		Rectangle r = sc.getRect();
-		r.setY(r.getY()-(moveSpeed+1));
-		dY++;
-		if(dY == 0){
-			isJumping = false;
-			isFalling = true;
+	private int jumpTime = 0;
+	public void jump(Entity entity, int delta){
+		jumpTime += delta;
+		Rectangle r = entity.getRect();
+		float y1 = r.getY();
+		//r.setY(y1 - (float) (jumpSpeed * jumpTime + gravity * Math.pow(jumpTime, 2)));
+		//r.setY(r.getY() + moveSpeed);
+		//entity.setDeltaY(y1 - r.getY());
+		if(entity.getVelocityY() == 0){
+			jumpTime = 0;
+			entity.setJumping(false);
+			entity.setFalling(true);
 		}
 	}
 	

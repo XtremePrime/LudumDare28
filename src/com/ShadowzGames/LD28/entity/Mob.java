@@ -9,18 +9,15 @@ import com.ShadowzGames.LD28.SpriteContainer;
 import com.ShadowzGames.LD28.Direction;
 
 public class Mob extends AnimatedSprite{
-	protected float moveSpeed = 0.1f;
+	protected final float gravity = 0.005f;
+	protected float moveSpeed = 1f;
+	protected float jumpSpeed = 0.01f;
 	protected int dir = 0;
 	protected int hurtTime = 0;
 	protected int xKnockback, yKnockback;
 	protected int maxHealth = 10;
 	protected int health = maxHealth;
 	protected int tickCount = 0;
-	
-	protected boolean isDead = false;
-	protected boolean isFalling = true;
-	protected boolean isMoving = false;
-	protected boolean isJumping = false;
 	
 	public Mob() {
 	}
@@ -31,7 +28,7 @@ public class Mob extends AnimatedSprite{
 		tickCount++;
 		if(sc instanceof Entity){
 			Entity entity = (Entity)sc;
-			if(isFalling) gravity((Entity)sc);
+			if(entity.isFalling()) gravity(entity, delta);
 			if (health <= 0) {
 				entity.die();
 			}
@@ -70,10 +67,26 @@ public class Mob extends AnimatedSprite{
 	public void render(Graphics g, SpriteContainer sc){
 		super.render(g, sc);
 	}
-	
-	protected void gravity(Entity e){
+	//int fallTime = 0;
+	protected void gravity(Entity e, int delta){
+		//fallTime += delta;
 		Rectangle rect = e.getRect();
-		if(rect.getY() < 400) rect.setY(rect.getY() + moveSpeed*2);
-		else isFalling = false;
+		float vel = e.getVelocityY();
+		if(rect.getY() < 400 || vel < 0){ //rect.setY(rect.getY() + moveSpeed);
+			float y1 = rect.getY();
+			rect.setY(y1 + (float) (vel * delta * jumpSpeed));
+			e.setVelocityY((float) (vel + gravity * Math.pow(delta, 2)));
+			if(e.isJumping() && e.getVelocityY() >= 0 ){
+				e.setJumping(false);
+				e.setFalling(true);
+			}
+			//rect.setY(y1 + (float) (jumpSpeed * fallTime + gravity * Math.pow(fallTime, 2)));
+			//e.setVelocityY(y1 - rect.getY());
+		}
+		else{
+			//fallTime = 0;
+			e.setVelocityY(0);
+			e.setFalling(false);
+		}
 	}
 }
