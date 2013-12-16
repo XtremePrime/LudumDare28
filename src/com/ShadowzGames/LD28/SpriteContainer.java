@@ -25,6 +25,10 @@ public class SpriteContainer {
 		return this.rect;
 	}
 
+	public int getPrototypeID() {
+		return prototype.getID();
+	}
+
 	public <T extends Sprite> boolean isInstance(Class<T> other) {
 		return other.isInstance(prototype);
 	}

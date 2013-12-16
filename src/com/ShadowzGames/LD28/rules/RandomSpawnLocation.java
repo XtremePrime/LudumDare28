@@ -39,10 +39,10 @@ public class RandomSpawnLocation implements Spawner {
 		int i = Math.abs(r.nextInt() % availableMobs.length);
 		int x = 0;
 		int y = 0;
-		//do{
+		do{
 			x = Math.abs(r.nextInt() % (map.TILE_COL * map.TILE_WIDTH));
 			y = Math.abs(r.nextInt() % (map.TILE_ROW * map.TILE_HEIGHT));
-		//} while(!map.getTile(x/map.TILE_WIDTH, y/map.TILE_HEIGHT).isInstance(AirTile.class));
+		} while(map.getTile(x/map.TILE_WIDTH, y/map.TILE_HEIGHT).getPrototypeID() == 0);
 		
 		Entity e = new Entity(availableMobs[i]);
 		
