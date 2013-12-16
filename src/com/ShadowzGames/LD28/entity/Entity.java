@@ -98,17 +98,21 @@ public class Entity extends SpriteContainer {
 	 * @param velY
 	 */
 	public void setVelocityY(float velY) {
-		if(velY <= 50)
+		if(velY <= 20)
 			this.velY = velY;
+		else if(velY < -50)
+			this.velY = -50;
 		else
-			this.velY = 50;
+			this.velY = 20;
 	}
 
 	public void setVelocityX(float velX) {
-		if(velX <=50)
+		if(velX <=30)
 			this.velX = velX;
+		else if(velY < -30)
+			this.velY = -30;
 		else
-			this.velX = 50;
+			this.velX = 30;
 	}
 
 	public void collidedWith(SpriteContainer sc){

@@ -2,6 +2,7 @@ package com.ShadowzGames.LD28.entity;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.ShadowzGames.LD28.AnimatedSprite;
@@ -29,7 +30,7 @@ public class Mob extends AnimatedSprite{
 		tickCount++;
 		if(sc instanceof Entity){
 			Entity entity = (Entity)sc;
-			if(entity.isFalling() || entity.isColliding()) gravity(entity, delta);
+			if(entity.isFalling() || !entity.isColliding()) gravity(entity, delta);
 			if (health <= 0) {
 				entity.die();
 			}
@@ -75,7 +76,7 @@ public class Mob extends AnimatedSprite{
 		//fallTime += delta;
 		Rectangle rect = e.getRect();
 		float vel = e.getVelocityY();
-		if(rect.getY() < 400 || vel < 0){ //rect.setY(rect.getY() + moveSpeed);
+		if(rect.getY() < 400 || vel <= 0){ //rect.setY(rect.getY() + moveSpeed);
 			float y1 = rect.getY();
 			rect.setY(y1 + (float) (vel * delta * jumpSpeed));
 			e.setVelocityY((float) (vel + gravity * Math.pow(delta, 2)));
@@ -98,15 +99,26 @@ public class Mob extends AnimatedSprite{
 	public void collidedWith(Entity self, SpriteContainer other){
 		if(other instanceof Tile){
 			Tile tile = (Tile)other;
-			float playerbottom = self.getRect().getY()+self.getRect().getHeight();
-			float tiletop = tile.getRect().getY();
-			if(tiletop < playerbottom + 8 && tiletop <= playerbottom){
-				self.setVelocityY(0);
-				self.setJumping(false);
-				self.setFalling(false);
-				self.getRect().setY(tiletop - self.getRect().getHeight());
+//			float playerbottom = self.getRect().getY()+self.getRect().getHeight();
+//			float tiletop = tile.getRect().getY();
+			Point tiletopleft = new Point(tile.getRect().getX(), tile.getRect().getY());
+			Point tiletopright = new Point(tile.getRect().getX() + tile.getRect().getWidth(), tile.getRect().getY());
+			Rectangle mobrect = tile.getRect();
+			if(mobrect.contains(tiletopright) || mobrect.contains(tiletopleft)){
+				if(self.getVelocityY() > 0){
+					//- All top collisions
+					self.setVelocityY(0);
+					self.setJumping(false);
+					self.setFalling(false);
+					self.getRect().setY(tiletopleft.getY() - self.getRect().getHeight() + 4);
+				}
+				if(self.getVelocityX() > 0){
+					// TODO Implement sideblocking!
+					self.setVelocityX(0);
+					self.setMoving(false);
+				}
 			}
+			self.setColliding(true);
 		}
-		self.setColliding(true);
 	}
 }

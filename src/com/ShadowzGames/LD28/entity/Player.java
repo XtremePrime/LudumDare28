@@ -50,8 +50,9 @@ public class Player extends Mob{
 			Entity entity = (Entity)sc;
 			move(gc, entity, delta);
 			if(isAttacking) attack(entity, delta, this.dir);
-			if(entity.isJumping() || entity.isFalling()) gravity(entity, delta);
+			if(entity.isJumping() || entity.isFalling() || !entity.isColliding()) gravity(entity, delta);
 			//if(entity.isJumping() && !entity.isFalling()) jump(entity, delta);
+			entity.setColliding(false);
 		}
 	}
 	
