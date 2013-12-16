@@ -85,6 +85,7 @@ public class Mob extends AnimatedSprite{
 		}
 		else{
 			//fallTime = 0;
+			setAnimation(e, 0); setFrame(e, 0);
 			e.setVelocityY(0);
 			e.setFalling(false);
 		}
