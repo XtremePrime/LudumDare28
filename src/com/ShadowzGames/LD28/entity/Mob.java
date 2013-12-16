@@ -17,6 +17,11 @@ public class Mob extends AnimatedSprite{
 	protected int health = maxHealth;
 	protected int tickCount = 0;
 	
+	protected boolean isDead = false;
+	protected boolean isFalling = true;
+	protected boolean isMoving = false;
+	protected boolean isJumping = false;
+	
 	public Mob() {
 	}
 
@@ -26,6 +31,7 @@ public class Mob extends AnimatedSprite{
 		tickCount++;
 		if(sc instanceof Entity){
 			Entity entity = (Entity)sc;
+			if(isFalling) gravity((Entity)sc);
 			if (health <= 0) {
 				entity.die();
 			}
@@ -63,5 +69,11 @@ public class Mob extends AnimatedSprite{
 	@Override
 	public void render(Graphics g, SpriteContainer sc){
 		super.render(g, sc);
+	}
+	
+	protected void gravity(Entity e){
+		Rectangle rect = e.getRect();
+		if(rect.getY() < 400) rect.setY(rect.getY() + moveSpeed*2);
+		else isFalling = false;
 	}
 }

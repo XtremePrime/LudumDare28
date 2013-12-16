@@ -15,10 +15,10 @@ public class Player extends Mob{
 	private int enemiesKilled = 0;
 	private int score = 0;
 	private int wave = 0;
-	private boolean isDead = false;
-	private boolean isFalling = true;
-	private boolean isMoving = false;
-	private boolean isJumping = false;
+//	private boolean isDead = false;
+//	private boolean isFalling = true;
+//	private boolean isMoving = false;
+//	private boolean isJumping = false;
 	private int dX, dY;
 	
 	private Random rand = new Random();
@@ -119,10 +119,8 @@ public class Player extends Mob{
 
 	}
 
-	private void gravity(Entity e){
-		Rectangle rect = e.getRect();
-		if(rect.getY() < 400) rect.setY(rect.getY() + moveSpeed*2);
-		else isFalling = false;
+	protected void gravity(Entity e){
+		super.gravity(e);
 	}
 	
 	public void jump(Entity sc){
